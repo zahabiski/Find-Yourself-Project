@@ -208,7 +208,6 @@ st.write("")
 st.write("") 
 st.write("") 
 
-placeholder = st.empty()
 col1, col2, col3 = st.columns(3) 
 with col1: 
     pass 
@@ -216,7 +215,8 @@ with col2:
     center_button = st.button('**Submit**')
 with col3: 
     pass
-
+    
+placeholder = st.empty()
 if center_button:
     if None in st.session_state.answers:
         placeholder.warning("Please, answer all the questions!", icon="❌")
