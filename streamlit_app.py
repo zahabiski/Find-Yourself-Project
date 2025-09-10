@@ -55,8 +55,9 @@ div[data-testid="stMarkdownContainer"] > p strong {
     display: inline-block;
 }
 
-[data-testid="stToolbar"] {visibility: hidden !important;}
-footer {visibility: hidden !important;}
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
 
