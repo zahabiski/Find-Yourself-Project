@@ -16,8 +16,5 @@ st.set_page_config(
 
 # ---------------------- PAGE HEADER ----------------------
 
-st.markdown(
-    "<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>",
-    unsafe_allow_html=True
-)
+
 
