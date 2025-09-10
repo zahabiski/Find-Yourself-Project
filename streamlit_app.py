@@ -208,7 +208,9 @@ progress_bar.progress(progress)
 progress_text.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
 
 st.write("")
-st.write("")  
+st.write("")
+st.write("") 
+st.write("") 
 
 col1, col2, col3 = st.columns(3) 
 with col1: 
