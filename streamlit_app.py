@@ -191,7 +191,7 @@ for i, q in enumerate(quiz, start=1):
     st.markdown(f"**{i}) {q['question']}**")
 
     current_answer = st.session_state.answers.get(q["question"], None)
-    time.sleep(0.1)
+
     choice = st.radio(
         "",
         q["options"],
@@ -199,7 +199,7 @@ for i, q in enumerate(quiz, start=1):
         index=0 if current_answer is None else q["options"].index(current_answer)
     )
 
-    st.session_state.answers[q['question']] = choice
+    st.session_state.answers[q["question"]] = choice
     
 # ---------------------- SIDEBAR PROGRESS ----------------------
 
