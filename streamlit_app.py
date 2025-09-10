@@ -10,9 +10,7 @@ st.set_page_config(
 )
 
 st.markdown(
-    "<h1 style='text-align: center; color: black;'>
-    Find Yourself Quiz
-    </h1>",
+    "<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>",
     unsafe_allow_html=True
 )
 
