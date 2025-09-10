@@ -182,27 +182,25 @@ quiz = [
 
 total_questions = len(quiz)
 
+# Initialization of cycle
+if "answers" not in st.session_state:
+    st.session_state.answers = {q["question"]: None for q in quiz}
+
+# shows quiz
 for i, q in enumerate(quiz, start=1):
-    key = f"q{i}"  # уникальный ключ для каждого вопроса
-
-    # инициализация session_state для вопроса (необязательно, но безопасно)
-    if key not in st.session_state:
-        st.session_state[key] = None
-
     st.markdown(f"**{i}) {q['question']}**")
 
-    # создаём радио, Streamlit сам сохраняет выбор в st.session_state[key]
-    st.radio(
+    current_answer = st.session_state.answers.get(q["question"], None)
+
+    choice = st.radio(
         "",
         q["options"],
-        index=0 if st.session_state[key] is None else q["options"].index(st.session_state[key]),
-        key=key
+        key=f"q{i}",
+        index=0 if current_answer is None else q["options"].index(current_answer)
     )
 
-st.session_state.answers = {
-    q["question"]: st.session_state[f"q{i+1}"]
-    for i, q in enumerate(quiz)
-}
+    st.session_state.answers = {q["question"]: st.session_state[f"q{i+1}"] for i, q in enumerate(quiz)}
+    
 # ---------------------- SIDEBAR PROGRESS ----------------------
 
 st.sidebar.header("Progress")
