@@ -56,6 +56,11 @@ div[data-testid="stMarkdownContainer"] > p strong {
     display: inline-block;
 }
 
+/* Padding */
+div[role="radiogroup"] {
+    margin-top: -10px;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
