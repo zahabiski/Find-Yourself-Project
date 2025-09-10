@@ -54,9 +54,9 @@ div[data-testid="stMarkdownContainer"] > p strong {
     font-size: 25px;   
     display: inline-block;
 }
-#MainMenu {visibility: hidden;}
-footer {visibility: hidden;}
-header {visibility: hidden;}
+
+[data-testid="stToolbar"] {visibility: hidden !important;}
+footer {visibility: hidden !important;}
 </style>
 """, unsafe_allow_html=True)
 
