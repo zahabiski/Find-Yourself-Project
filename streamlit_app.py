@@ -236,5 +236,16 @@ if center_button:
         st.session_state.submitted_answers = st.session_state.answers.copy()    # copies the answers to work with (dict. format)
         placeholder.success("Thank you for your answers!", icon="✅")
 
+st.markdown("""
+        <style>
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+            .stAlert {
+                animation: fadeOut 5s ease;
+            }
+        </style>
+    """, unsafe_allow_html=True)
 time.sleep(5)
 placeholder.empty()
