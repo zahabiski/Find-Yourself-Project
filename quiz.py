@@ -250,13 +250,13 @@ with col3:
 placeholder = st.empty()
 
 if center_button:
+    st.switch_page("pages/profile.py")
     if any(v is None for v in st.session_state.answers.values()):
         placeholder.warning("Please, answer all the questions!", icon="❌")
     else:
         st.session_state.submitted_answers = st.session_state.answers.copy()    # copies the answers to work with (dict. format)
         placeholder.success("Thank you for your answers!", icon="✅")
         time.sleep(3)
-    st.switch_page("pages/profile.py")
 
 st.markdown("""
         <style>
