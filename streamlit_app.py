@@ -61,6 +61,13 @@ div[role="radiogroup"] > label {
     margin-bottom: 4px;  
     font-size: 19px;
 }    
+/* Position */
+div[role="radiogroup"] > label input[type="radio"] {
+    position: absolute;
+    left: 50%;        
+    top: 50%;         
+    transform: translate(-50%, -50%);
+}
 </style>
 """, unsafe_allow_html=True)
 
