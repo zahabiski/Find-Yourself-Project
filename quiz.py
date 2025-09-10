@@ -250,7 +250,7 @@ with col3:
 placeholder = st.empty()
 
 if center_button:
-    st.switch_page("profile")
+    st.switch_page("Find Yourself")
     if any(v is None for v in st.session_state.answers.values()):
         placeholder.warning("Please, answer all the questions!", icon="❌")
     else:
