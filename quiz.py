@@ -256,7 +256,7 @@ if center_button:
         st.session_state.submitted_answers = st.session_state.answers.copy()    # copies the answers to work with (dict. format)
         placeholder.success("Thank you for your answers!", icon="✅")
         time.sleep(3)
-        st.switch_page("https://findyourselfquiz2.streamlit.app/")
+        st.page_link("https://findyourselfquiz2.streamlit.app/")
 
 st.markdown("""
         <style>
