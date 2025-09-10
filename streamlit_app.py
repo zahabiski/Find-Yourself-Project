@@ -8,7 +8,6 @@ import time
 
 im = Image.open("logo-round.png")
 
-    
 st.set_page_config(
     page_title="Find Yourself",
     page_icon=im,
