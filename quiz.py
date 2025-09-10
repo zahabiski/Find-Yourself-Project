@@ -6,6 +6,12 @@ import time
 
 # ---------------------- PAGE CONFIG ----------------------
 
+if "page" not in st.session_state:
+    st.session_state.page = "quiz"
+
+if st.session_state.page == "profile":
+    st.switch_page("pages/profile.py")
+    
 im = Image.open("logo-round.png")
 
 st.set_page_config(
@@ -256,7 +262,8 @@ if center_button:
         st.session_state.submitted_answers = st.session_state.answers.copy()    # copies the answers to work with (dict. format)
         placeholder.success("Thank you for your answers!", icon="✅")
         time.sleep(3)
-        st.switch_page(rf"pages/profile.py")
+        st.session_state.page = "profile"
+        st.rerun()
 
 st.markdown("""
         <style>
