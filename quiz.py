@@ -250,7 +250,7 @@ with col3:
 placeholder = st.empty()
 
 if center_button:
-    st.switch_page("Find Yourself")
+    st.switch_page("quiz")
     if any(v is None for v in st.session_state.answers.values()):
         placeholder.warning("Please, answer all the questions!", icon="❌")
     else:
@@ -271,3 +271,4 @@ st.markdown("""
     """, unsafe_allow_html=True)
 time.sleep(6)
 placeholder.empty()
+st.page_link("pages/profile.py", label="Profile")
