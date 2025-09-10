@@ -10,7 +10,9 @@ st.set_page_config(
 )
 
 st.markdown(
-    "<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>",
+    "<h1 style='text-align: center; color: black;'>
+    Find Yourself Quiz
+    </h1>",
     unsafe_allow_html=True
 )
 
@@ -174,15 +176,17 @@ total_questions = len(quiz)
 
 # Инициализация только в session_state
 if "answers" not in st.session_state:
-    st.session_state.answers = [None] * total_questions
+    st.session_state.answers = {q["question"]: None for q in quiz}
 
 # основной цикл вопросов
 for i, q in enumerate(quiz, start=1):
     st.markdown(f"**{i}) {q['question']}**")
-    st.session_state.answers[i-1] = st.radio(
+    current_answer = st.session_state.answers[q["question"]]
+
+    st.session_state.answers[q["question"]] = st.radio(
         "",
         q["options"],
-        index=None if st.session_state.answers[i-1] is None else q["options"].index(st.session_state.answers[i-1]),
+        index=None if current_answer is None else q["options"].index(current_answer),
         key=f"q{i}"
     )
 
@@ -208,12 +212,12 @@ st.write("")
 st.write("") 
 st.write("") 
 
-col1, col2, col3 = st.columns(3) 
-with col1: 
-    pass 
-with col2: 
+col1, col2, col3 = st.columns(3)
+with col1:
+    pass
+with col2:
     center_button = st.button('**Submit**')
-with col3: 
+with col3:
     pass
     
 placeholder = st.empty()
@@ -226,3 +230,5 @@ if center_button:
         
 time.sleep(5)
 placeholder.empty()
+
+st.write(submitted_answers)
