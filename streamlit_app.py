@@ -172,11 +172,9 @@ quiz = [
 
 total_questions = len(quiz)
 
-# --- инициализация словаря ответов (question: answer) ---
 if "answers" not in st.session_state:
     st.session_state.answers = {q["question"]: None for q in quiz}
 
-# --- основной (единственный) цикл вопросов ---
 for i, q in enumerate(quiz, start=1):
     st.markdown(f"**{i}) {q['question']}**")
     current_answer = st.session_state.answers[q["question"]]
@@ -185,12 +183,10 @@ for i, q in enumerate(quiz, start=1):
         "",
         q["options"],
         index=None if current_answer is None else q["options"].index(current_answer),
-        key=f"q{i}"  # уникальный и стабильный ключ для каждого вопроса
+        key=f"q{i}" 
     )
-    # сохраняем ответ в словаре
     st.session_state.answers[q["question"]] = choice
 
-# --- сайдбар: прогресс и список вопросов ---
 st.sidebar.header("Progress")
 progress_bar = st.sidebar.progress(0)
 progress_text = st.sidebar.empty()
@@ -202,13 +198,11 @@ for i, (question, ans) in enumerate(st.session_state.answers.items(), start=1):
     else:
         st.sidebar.markdown(f"**{i}) ✅ Answered**")
 
-# --- вычисление самого прогресса ---
 answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
 progress = int((answered_count / total_questions) * 100)
 progress_bar.progress(progress)
 progress_text.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
 
-# --- кнопка отправки по центру ---
 col1, col2, col3 = st.columns(3)
 with col1:
     pass
@@ -225,7 +219,6 @@ if center_button:
         st.session_state.submitted_answers = st.session_state.answers.copy()
         placeholder.success("Thank you for your answers!", icon="✅")
 
-        # Показать результаты в формате "вопрос → ответ"
         for question, answer in st.session_state.submitted_answers.items():
-            st.write(f"**{question}** → {answer}")
+            st.write(f"{question} : {answer}")
 
