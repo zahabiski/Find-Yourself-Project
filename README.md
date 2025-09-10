@@ -14,6 +14,3 @@ Project, that based on Quiz, generates description about the person in Hard/Soft
 
 Not yet
 
-## Further Reading
-
-Do not have
