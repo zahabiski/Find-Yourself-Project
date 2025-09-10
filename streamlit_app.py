@@ -189,15 +189,18 @@ if "answers" not in st.session_state:
 # shows quiz
 for i, q in enumerate(quiz, start=1):
     st.markdown(f"**{i}) {q['question']}**")
-    current_answer = st.session_state.answers[q["question"]]
+
+    current_answer = st.session_state.answers.get(q["question"], None)
 
     choice = st.radio(
         "",
         q["options"],
-        index=None if current_answer is None else q["options"].index(current_answer),
-        key=f"q{i}" 
+        key=f"q{i}",
+        index=0 if current_answer is None else q["options"].index(current_answer)
     )
+
     st.session_state.answers[q["question"]] = choice
+    
 # ---------------------- SIDEBAR PROGRESS ----------------------
 
 st.sidebar.header("Progress")
