@@ -6,7 +6,11 @@ import time
 
 # ---------------------- PAGE CONFIG ----------------------
 
-im = Image.open("logo-round.png")
+try:
+    im = Image.open("logo-round.png")
+except Exception:
+    im = None
+    
 st.set_page_config(
     page_title="Find Yourself",
     page_icon=im,
@@ -89,7 +93,7 @@ quiz = [
         ]
     },
     {
-        "question": " Do you enjoy solving mathematical problems with computer?",
+        "question": " Do you enjoy solving mathematical and computer problems?",
         "options": [
             "Yes, I do",
             "Mostly, but not good with computers",
@@ -109,7 +113,7 @@ quiz = [
         ]
     },
     {
-        "question": " Are you interested in learning how the human body or nature works?",
+        "question": " Are you interested in learning how the human body and nature works?",
         "options": [
             "Yes, It's really interesting",
             "Mostly, but prefer help people",
@@ -129,7 +133,7 @@ quiz = [
         ]
     },
     {
-        "question": " Do you enjoy analyzing markets, managing money, or running projects?",
+        "question": " Do you enjoy managing finances and running projects?",
         "options": [
             "Yes, It's really interests me",
             "Mostly, but I'm not good in math",
@@ -149,7 +153,7 @@ quiz = [
         ]
     },
     {
-        "question": " Do you enjoy writing, learning languages, or exploring culture and history?",
+        "question": " Do you enjoy learning languages, exploring culture and history?",
         "options": [
             "Yes, It's very interesting",
             "Mostly, but I prefer learning languages only",
@@ -159,7 +163,7 @@ quiz = [
         ]
     },
     {
-        "question": " Do you enjoy leading people and organizing processes or tasks?",
+        "question": " Do you enjoy leading people and organizing processes?",
         "options": [
             "Yes, I love lead and being responsible",
             "Mostly, but I'm bad at managing tasks",
@@ -169,7 +173,7 @@ quiz = [
         ]
     },
     {
-        "question": " Do you like working with visuals, sounds, or building artistic things?",
+        "question": " Do you like working with visuals, sounds and building artistic things?",
         "options": [
             "Yes, I’m pretty creative in these areas",
             "Mostly, but hard in realization",
