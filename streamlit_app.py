@@ -1,7 +1,10 @@
+# ---------------------- IMPORTS ----------------------
 import streamlit as st
 from PIL import Image
 import time
 
+
+# ---------------------- PAGE CONFIG ----------------------
 im = Image.open(rf"logo-round.png")
 st.set_page_config(
     page_title="Find Yourself",
@@ -9,50 +12,60 @@ st.set_page_config(
     layout="centered"
 )
 
+
+# ---------------------- PAGE HEADER ----------------------
 st.markdown(
     "<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>",
     unsafe_allow_html=True
 )
 
+
+# ---------------------- CUSTOM STYLES ----------------------
 st.markdown("""
 <style>
+
+/* Button Submit */
 div.stButton > button:first-child {
     size: 25px;           
     font-style: bold;
     padding: 12px 45px;
     min-width: 120px;       
-    background-color:white;     
-    color:black;               
+    background-color: white;     
+    color: black;               
     border: 2px solid black;  
-    border-radius:10px;       
-    cursor:pointer;
+    border-radius: 10px;       
+    cursor: pointer;
 }
+
+/* "Progress" Sidebar */
 [data-testid="stSidebar"] h2 {
     font-size: 35px;
     font-weight: bold; 
 }
+
+/* BG */
 [data-testid="stSidebar"] {
     background-color: #bdbababd;
 }
+
+/* Questions */
 div[data-testid="stMarkdownContainer"] > p strong {
     font-size: 25px;   
     display: inline-block; 
 }
+
+/* Options */
 div[role="radiogroup"] > label {
     position: relative;
     padding-left: 30px; 
     margin-bottom: 4px;  
     font-size: 19px;
 }    
-div[role="radiogroup"] > label input[type="radio"] {
-    position: absolute;
-    left: 50%;        
-    top: 50%;         
-    transform: translate(-50%, -50%);
-}
 </style>
 """, unsafe_allow_html=True)
 
+
+# ---------------------- QUIZ DATA ----------------------
 quiz = [
     {
         "question": " What is your Gender?",
@@ -61,11 +74,11 @@ quiz = [
     {
         "question": " What is more related to you?",
         "options": [
-        "work with nature",
-        "work with people",
-        "work with technics",
-        "work with art",
-        "work with symbols"
+            "work with nature",
+            "work with people",
+            "work with technics",
+            "work with art",
+            "work with symbols"
         ]
     },
     {
@@ -170,11 +183,15 @@ quiz = [
     }
 ]
 
+
+# ---------------------- QUIZ LOGIC ----------------------
 total_questions = len(quiz)
 
+# Initialization of cycle
 if "answers" not in st.session_state:
     st.session_state.answers = {q["question"]: None for q in quiz}
 
+# shows quiz
 for i, q in enumerate(quiz, start=1):
     st.markdown(f"**{i}) {q['question']}**")
     current_answer = st.session_state.answers[q["question"]]
@@ -187,35 +204,43 @@ for i, q in enumerate(quiz, start=1):
     )
     st.session_state.answers[q["question"]] = choice
 
+
+# ---------------------- SIDEBAR PROGRESS ----------------------
 st.sidebar.header("Progress")
 progress_bar = st.sidebar.progress(0)
 progress_text = st.sidebar.empty()
 
 st.sidebar.markdown("**Questions:**")
-for i, (question, ans) in enumerate(st.session_state.answers.items(), start=1):
+for i, (question, ans) in enumerate(st.session_state.answers.items(), start=1):    # dynamicaly check either the que. was answered or not
     if ans is None:
         st.sidebar.markdown(f"**{i}) ❌ Not yet**")
     else:
         st.sidebar.markdown(f"**{i}) ✅ Answered**")
 
+# Progress calc. (dynamical)
 answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
 progress = int((answered_count / total_questions) * 100)
 progress_bar.progress(progress)
 progress_text.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
 
+
+# ---------------------- SUBMIT SECTION ----------------------
 col1, col2, col3 = st.columns(3)
 with col1:
     pass
 with col2:
-    center_button = st.button('**Submit**')
+    center_button = st.button('**Submit**')    # Centers the submit button
 with col3:
     pass
 
 placeholder = st.empty()
+
 if center_button:
     if any(v is None for v in st.session_state.answers.values()):
         placeholder.warning("Please, answer all the questions!", icon="❌")
     else:
-        st.session_state.submitted_answers = st.session_state.answers.copy()
+        st.session_state.submitted_answers = st.session_state.answers.copy()    # copies the answers to work with (dict. format)
         placeholder.success("Thank you for your answers!", icon="✅")
 
+time.sleep(5)
+placeholder.empty()
