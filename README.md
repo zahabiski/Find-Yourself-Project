@@ -1,13 +1,10 @@
-# Found Yourself App
-```
-⬆️ (Replace above with your app's name)
-```
+# Find Yourself App
 
 Project, that based on Quiz, generates description about the person in Hard/Soft skills terms
 
 ## Demo App
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://app-starter-kit.streamlit.app/)
+
 
 ## GitHub Codespaces
 
@@ -15,11 +12,8 @@ Project, that based on Quiz, generates description about the person in Hard/Soft
 
 ## Section Heading
 
-This is filler text, please replace this with text for this section.
+Not yet
 
 ## Further Reading
 
-This is filler text, please replace this with a explanatory text about further relevant resources for this repo
-- Resource 1
-- Resource 2
-- Resource 3
+Do not have
