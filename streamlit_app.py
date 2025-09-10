@@ -190,20 +190,17 @@ if "answers" not in st.session_state:
 for i, q in enumerate(quiz, start=1):
     key = f"q{i}"
 
-    # инициализация состояния для радио (необязательно)
     if key not in st.session_state:
         st.session_state[key] = None
 
     st.markdown(f"**{i}) {q['question']}**")
 
-    # Streamlit сам сохраняет выбор в session_state[key]
     st.radio(
         "",
         q["options"],
         key=key
     )
-
-# собрать ответы после quiz
+    st.write("")
 st.session_state.answers = {
     q["question"]: st.session_state[f"q{i+1}"]
     for i, q in enumerate(quiz)
