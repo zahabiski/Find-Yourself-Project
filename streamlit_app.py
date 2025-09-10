@@ -61,6 +61,9 @@ div[role="radiogroup"] {
     margin-top: -25px;
 }
 
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+
 </style>
 """, unsafe_allow_html=True)
 
