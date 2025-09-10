@@ -255,6 +255,8 @@ if center_button:
     else:
         st.session_state.submitted_answers = st.session_state.answers.copy()    # copies the answers to work with (dict. format)
         placeholder.success("Thank you for your answers!", icon="✅")
+        time.sleep(3)
+        st.switch_page("profile.py")
 
 st.markdown("""
         <style>
