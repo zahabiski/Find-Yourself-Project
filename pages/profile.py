@@ -6,9 +6,6 @@ import time
 
 # ---------------------- PAGE CONFIG ----------------------
 
-if "page" not in st.session_state:
-    st.session_state.page = "quiz"
-    
 im = Image.open("logo-round.png")
 
 st.set_page_config(
@@ -23,3 +20,4 @@ st.markdown(
     "<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>",
     unsafe_allow_html=True
 )
+
