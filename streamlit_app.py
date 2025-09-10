@@ -14,7 +14,7 @@ except Exception:
 st.set_page_config(
     page_title="Find Yourself",
     page_icon=im,
-    layout="wide"
+    layout="centered"
 )
 
 # ---------------------- PAGE HEADER ----------------------
