@@ -154,13 +154,13 @@ quiz = [
     },
     {
         "question": " Do you enjoy leading people and organizing processes or tasks?",
-        "options": [
+        "options": [**
             "Yes, I love lead and being responsible",
             "Mostly, but I'm bad at managing tasks",
             "Sometimes, It depends",
             "Not Really, but I can manage tasks well",
             "No, I’d rather be a part of the machine"
-        ]
+        **]
     },
     {
         "question": " Do you like working with visuals, sounds, or building artistic things?",
