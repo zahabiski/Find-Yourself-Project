@@ -1,9 +1,9 @@
-# 📦 Streamlit App Starter Kit 
+# Found Yourself App
 ```
 ⬆️ (Replace above with your app's name)
 ```
 
-Description of the app ...
+Project, that based on Quiz, generates description about the person in Hard/Soft skills terms
 
 ## Demo App
 
