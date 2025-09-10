@@ -172,58 +172,43 @@ quiz = [
 
 total_questions = len(quiz)
 
-# Инициализация только в session_state
+# --- инициализация словаря ответов (question: answer) ---
 if "answers" not in st.session_state:
     st.session_state.answers = {q["question"]: None for q in quiz}
 
-# основной цикл вопросов
+# --- основной (единственный) цикл вопросов ---
 for i, q in enumerate(quiz, start=1):
     st.markdown(f"**{i}) {q['question']}**")
     current_answer = st.session_state.answers[q["question"]]
 
-    st.session_state.answers[q["question"]] = st.radio(
+    choice = st.radio(
         "",
         q["options"],
         index=None if current_answer is None else q["options"].index(current_answer),
-        key=f"q{i}"
+        key=f"q{i}"  # уникальный и стабильный ключ для каждого вопроса
     )
+    # сохраняем ответ в словаре
+    st.session_state.answers[q["question"]] = choice
 
-# Инициализация только в session_state
-if "answers_bar" not in st.session_state:
-    st.session_state.answers_bar = [None] * total_questions
-
-# основной цикл вопросов
-for i, q in enumerate(quiz, start=1):
-    st.markdown(f"**{i}) {q['question']}**")
-    st.session_state.answers_bar[i-1] = st.radio(
-        "",
-        q["options"],
-        index=None if st.session_state.answers_bar[i-1] is None else q["options"].index(st.session_state.answers_bar[i-1]),
-        key=f"q{i}"
-    )
-    
+# --- сайдбар: прогресс и список вопросов ---
 st.sidebar.header("Progress")
 progress_bar = st.sidebar.progress(0)
 progress_text = st.sidebar.empty()
 
 st.sidebar.markdown("**Questions:**")
-for i, ans in enumerate(st.session_state.answers_bar, start=1):
+for i, (question, ans) in enumerate(st.session_state.answers.items(), start=1):
     if ans is None:
         st.sidebar.markdown(f"**{i}) ❌ Not yet**")
     else:
         st.sidebar.markdown(f"**{i}) ✅ Answered**")
 
-# прогресс бар
-answered_count = len([a for a in st.session_state.answers_bar if a is not None])
+# --- вычисление самого прогресса ---
+answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
 progress = int((answered_count / total_questions) * 100)
 progress_bar.progress(progress)
 progress_text.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
 
-st.write("")
-st.write("")
-st.write("") 
-st.write("") 
-
+# --- кнопка отправки по центру ---
 col1, col2, col3 = st.columns(3)
 with col1:
     pass
@@ -231,16 +216,16 @@ with col2:
     center_button = st.button('**Submit**')
 with col3:
     pass
-    
+
 placeholder = st.empty()
 if center_button:
-    if None in st.session_state.answers:
+    if any(v is None for v in st.session_state.answers.values()):
         placeholder.warning("Please, answer all the questions!", icon="❌")
     else:
-        placeholder.success("Thank you for your answers!", icon="✅")
         st.session_state.submitted_answers = st.session_state.answers.copy()
-        
-time.sleep(5)
-placeholder.empty()
+        placeholder.success("Thank you for your answers!", icon="✅")
 
-st.write(submitted_answers)
+        # Показать результаты в формате "вопрос → ответ"
+        for question, answer in st.session_state.submitted_answers.items():
+            st.write(f"**{question}** → {answer}")
+
