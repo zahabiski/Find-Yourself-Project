@@ -196,7 +196,7 @@ for i, q in enumerate(quiz, start=1):
         "",
         q["options"],
         key=f"q{i}",
-        index=0 if current_answer is None else q["options"].index(current_answer)
+        index=None if current_answer is None else q["options"].index(current_answer)
     )
 
     st.session_state.answers[q["question"]] = choice
