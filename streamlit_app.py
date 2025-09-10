@@ -188,19 +188,33 @@ for i, q in enumerate(quiz, start=1):
         key=f"q{i}"
     )
 
+# Инициализация только в session_state
+if "answers_bar" not in st.session_state:
+    st.session_state.answers_bar = [None] * total_questions
+
+# основной цикл вопросов
+for i, q in enumerate(quiz, start=1):
+    st.markdown(f"**{i}) {q['question']}**")
+    st.session_state.answers_bar[i-1] = st.radio(
+        "",
+        q["options"],
+        index=None if st.session_state.answers_bar[i-1] is None else q["options"].index(st.session_state.answers_bar[i-1]),
+        key=f"q{i}"
+    )
+    
 st.sidebar.header("Progress")
 progress_bar = st.sidebar.progress(0)
 progress_text = st.sidebar.empty()
 
 st.sidebar.markdown("**Questions:**")
-for i, ans in enumerate(st.session_state.answers, start=1):
+for i, ans in enumerate(st.session_state.answers_bar, start=1):
     if ans is None:
         st.sidebar.markdown(f"**{i}) ❌ Not yet**")
     else:
         st.sidebar.markdown(f"**{i}) ✅ Answered**")
 
 # прогресс бар
-answered_count = len([a for a in st.session_state.answers if a is not None])
+answered_count = len([a for a in st.session_state.answers_bar if a is not None])
 progress = int((answered_count / total_questions) * 100)
 progress_bar.progress(progress)
 progress_text.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
