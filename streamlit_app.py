@@ -191,20 +191,13 @@ for i, q in enumerate(quiz, start=1):
     st.markdown(f"**{i}) {q['question']}**")
     current_answer = st.session_state.answers[q["question"]]
 
-    options = ["— Select —"] + q["options"]
-
-    if current_answer in q["options"]:
-        default_index = q["options"].index(current_answer) + 1
-    else:
-        default_index = 0
     choice = st.radio(
         "",
-        options,
-        index=default_index,
-        key=f"q{i}"
+        q["options"],
+        index=None if current_answer is None else q["options"].index(current_answer),
+        key=f"q{i}" 
     )
-    st.session_state.answers[q["question"]] = None if choice == "— Select —" else choice
-
+    st.session_state.answers[q["question"]] = choice
 # ---------------------- SIDEBAR PROGRESS ----------------------
 
 st.sidebar.header("Progress")
