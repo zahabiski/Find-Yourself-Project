@@ -1,26 +1,27 @@
 # ---------------------- IMPORTS ----------------------
+
 import streamlit as st
 from PIL import Image
 import time
 
-
 # ---------------------- PAGE CONFIG ----------------------
-im = Image.open(rf"logo-round.png")
+
+im = Image.open("logo-round.png")
 st.set_page_config(
     page_title="Find Yourself",
     page_icon=im,
     layout="centered"
 )
 
-
 # ---------------------- PAGE HEADER ----------------------
+
 st.markdown(
     "<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>",
     unsafe_allow_html=True
 )
 
-
 # ---------------------- CUSTOM STYLES ----------------------
+
 st.markdown("""
 <style>
 
@@ -57,8 +58,8 @@ div[data-testid="stMarkdownContainer"] > p strong {
 </style>
 """, unsafe_allow_html=True)
 
-
 # ---------------------- QUIZ DATA ----------------------
+
 quiz = [
     {
         "question": " What is your Gender?",
@@ -176,8 +177,8 @@ quiz = [
     }
 ]
 
-
 # ---------------------- QUIZ LOGIC ----------------------
+
 total_questions = len(quiz)
 
 # Initialization of cycle
@@ -197,8 +198,8 @@ for i, q in enumerate(quiz, start=1):
     )
     st.session_state.answers[q["question"]] = choice
 
-
 # ---------------------- SIDEBAR PROGRESS ----------------------
+
 st.sidebar.header("Progress")
 progress_bar = st.sidebar.progress(0)
 progress_text = st.sidebar.empty()
@@ -216,8 +217,8 @@ progress = int((answered_count / total_questions) * 100)
 progress_bar.progress(progress)
 progress_text.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
 
-
 # ---------------------- SUBMIT SECTION ----------------------
+
 col1, col2, col3 = st.columns(3)
 with col1:
     pass
