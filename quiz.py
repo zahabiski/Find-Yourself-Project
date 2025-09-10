@@ -256,7 +256,7 @@ if center_button:
         st.session_state.submitted_answers = st.session_state.answers.copy()    # copies the answers to work with (dict. format)
         placeholder.success("Thank you for your answers!", icon="✅")
         time.sleep(3)
-        st.page_link("https://github.com/zahabiski/Find-Yourself-Project/blob/2a456202261f306e668f6397facd02d5811589ee/pages/profile.py", label="Profile")
+        st.switch_page("pages/profile.py")
 
 st.markdown("""
         <style>
