@@ -215,11 +215,11 @@ with col1:
 with col2: 
     center_button = st.button('**Submit**')
     if center_button:
-    if None in st.session_state.answers:
-        placeholder.warning("Please, answer all the questions!", icon="❌")
-    else:
-        placeholder.success("Thank you for your answers!", icon="✅")
-        st.session_state.submitted_answers = st.session_state.answers.copy()
+        if None in st.session_state.answers:
+            placeholder.warning("Please, answer all the questions!", icon="❌")
+        else:
+            placeholder.success("Thank you for your answers!", icon="✅")
+            st.session_state.submitted_answers = st.session_state.answers.copy()
 with col3: 
     pass
 
