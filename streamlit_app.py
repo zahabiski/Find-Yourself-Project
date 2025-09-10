@@ -182,24 +182,20 @@ quiz = [
 
 total_questions = len(quiz)
 
-# Initialization of cycle
-if "answers" not in st.session_state:
-    st.session_state.answers = {q["question"]: None for q in quiz}
-
-# shows quiz
 for i, q in enumerate(quiz, start=1):
+    key = f"q{i}"
+
+    if key not in st.session_state:
+        st.session_state[key] = None
+
     st.markdown(f"**{i}) {q['question']}**")
 
-    current_answer = st.session_state.answers.get(q["question"], None)
-
-    choice = st.radio(
+    st.session_state[key] = st.radio(
         "",
         q["options"],
-        key=f"q{i}",
-        index=0 if current_answer is None else q["options"].index(current_answer)
+        index=0 if st.session_state[key] is None else q["options"].index(st.session_state[key]),
+        key=key
     )
-
-    st.session_state.answers[q["question"]] = choice
     
 # ---------------------- SIDEBAR PROGRESS ----------------------
 
