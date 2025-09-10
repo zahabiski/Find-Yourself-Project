@@ -224,9 +224,9 @@ placeholder = st.empty()
 
 if center_button:
     if None in st.session_state.answers:
-        placeholder.warning("Please, answer all the questions!")
+        placeholder.warning("Please, answer all the questions!", icon="❌")
     else:
-        placeholder.success("Thank you for your answers!")
+        placeholder.success("Thank you for your answers!", icon="✅")
         st.session_state.submitted_answers = st.session_state.answers.copy()
 
 time.sleep(5)
