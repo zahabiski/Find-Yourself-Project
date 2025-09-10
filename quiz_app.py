@@ -1,4 +1,3 @@
-# python -m streamlit run C:\proj\quiz_app.py
 # ---------------------- IMPORTS ----------------------
 
 import streamlit as st
@@ -272,3 +271,4 @@ st.markdown("""
     """, unsafe_allow_html=True)
 time.sleep(6)
 placeholder.empty()
+
