@@ -6,10 +6,8 @@ import time
 
 # ---------------------- PAGE CONFIG ----------------------
 
-try:
-    im = Image.open("logo-round.png")
-except Exception:
-    im = None
+im = Image.open("logo-round.png")
+
     
 st.set_page_config(
     page_title="Find Yourself",
