@@ -250,13 +250,13 @@ with col3:
 placeholder = st.empty()
 
 if center_button:
-    st.switch_page("quiz")
     if any(v is None for v in st.session_state.answers.values()):
         placeholder.warning("Please, answer all the questions!", icon="❌")
     else:
         st.session_state.submitted_answers = st.session_state.answers.copy()    # copies the answers to work with (dict. format)
         placeholder.success("Thank you for your answers!", icon="✅")
         time.sleep(3)
+        st.switch_page("https://findyourselfquiz2.streamlit.app/")
 
 st.markdown("""
         <style>
@@ -271,4 +271,3 @@ st.markdown("""
     """, unsafe_allow_html=True)
 time.sleep(6)
 placeholder.empty()
-st.page_link("pages/profile.py", label="Profile")
