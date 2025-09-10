@@ -27,10 +27,6 @@ div.stButton > button:first-child {
     border-radius:10px;       
     cursor:pointer;
 }
-div.stButton > button:first-child {
-    display: flex;
-    justify-content: center;
-}
 [data-testid="stSidebar"] h2 {
     font-size: 35px;
     font-weight: bold; 
@@ -154,13 +150,13 @@ quiz = [
     },
     {
         "question": " Do you enjoy leading people and organizing processes or tasks?",
-        "options": [**
+        "options": [
             "Yes, I love lead and being responsible",
             "Mostly, but I'm bad at managing tasks",
             "Sometimes, It depends",
             "Not Really, but I can manage tasks well",
             "No, I’d rather be a part of the machine"
-        **]
+        ]
     },
     {
         "question": " Do you like working with visuals, sounds, or building artistic things?",
@@ -212,22 +208,20 @@ st.write("")
 st.write("") 
 st.write("") 
 
+placeholder = st.empty()
 col1, col2, col3 = st.columns(3) 
 with col1: 
     pass 
 with col2: 
-    center_button = st.button('**Submit**') 
-with col3: 
-    pass
-
-placeholder = st.empty()
-
-if center_button:
+    center_button = st.button('**Submit**')
+    if center_button:
     if None in st.session_state.answers:
         placeholder.warning("Please, answer all the questions!", icon="❌")
     else:
         placeholder.success("Thank you for your answers!", icon="✅")
         st.session_state.submitted_answers = st.session_state.answers.copy()
+with col3: 
+    pass
 
 time.sleep(5)
 placeholder.empty()
