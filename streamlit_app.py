@@ -1,4 +1,3 @@
-# python -m streamlit run C:\proj\quiz_app.py
 import streamlit as st
 from PIL import Image
 import time
