@@ -58,7 +58,7 @@ div[data-testid="stMarkdownContainer"] > p strong {
 
 /* Padding */
 div[role="radiogroup"] {
-    margin-top: -10px;
+    margin-top: -20px;
 }
 
 </style>
