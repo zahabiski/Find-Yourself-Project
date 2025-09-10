@@ -202,7 +202,6 @@ for i, q in enumerate(quiz, start=1):
 # ---------------------- SIDEBAR PROGRESS ----------------------
 
 st.sidebar.header("Progress")
-st.sidebar.write("Hello WOrld")
 progress_bar = st.sidebar.progress(0)
 progress_text = st.sidebar.empty()
 
