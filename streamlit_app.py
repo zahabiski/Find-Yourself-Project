@@ -242,18 +242,14 @@ if center_button:
 
 st.markdown("""
         <style>
-            @keyframes fadeIn {
-                from { opacity: 0; }
-                to { opacity: 1; }
-            }
             @keyframes fadeOut {
                 from { opacity: 1; }
                 to { opacity: 0; }
             }
             .stAlert {
-                animation: fadeOut 7s ease;
+                animation: fadeOut 6s ease;
             }
         </style>
     """, unsafe_allow_html=True)
-time.sleep(7)
+time.sleep(6)
 placeholder.empty()
