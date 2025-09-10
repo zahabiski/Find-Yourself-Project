@@ -219,6 +219,10 @@ progress_text.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
 
 # ---------------------- SUBMIT SECTION ----------------------
 
+st.write("")
+st.write("")
+st.write("")
+st.write("")
 col1, col2, col3 = st.columns(3)
 with col1:
     pass
@@ -238,14 +242,18 @@ if center_button:
 
 st.markdown("""
         <style>
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
             @keyframes fadeOut {
                 from { opacity: 1; }
                 to { opacity: 0; }
             }
             .stAlert {
-                animation: fadeOut 5s ease;
+                animation: fadeOut 7s ease;
             }
         </style>
     """, unsafe_allow_html=True)
-time.sleep(5)
+time.sleep(7)
 placeholder.empty()
