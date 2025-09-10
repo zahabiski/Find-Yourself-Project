@@ -256,7 +256,7 @@ if center_button:
         st.session_state.submitted_answers = st.session_state.answers.copy()    # copies the answers to work with (dict. format)
         placeholder.success("Thank you for your answers!", icon="✅")
         time.sleep(3)
-        st.switch_page("pages/profile.py", label="Profile")
+        st.switch_page("pages/Profile.py")
 
 st.markdown("""
         <style>
@@ -271,5 +271,6 @@ st.markdown("""
     """, unsafe_allow_html=True)
 time.sleep(6)
 placeholder.empty()
+
 
 
