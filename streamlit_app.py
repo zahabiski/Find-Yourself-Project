@@ -205,7 +205,7 @@ for i, q in enumerate(quiz, start=1):
         q["options"],
         key=key
     )
-    st.write("")
+    
 st.session_state.answers = {
     q["question"]: st.session_state[f"q{i+1}"]
     for i, q in enumerate(quiz)
