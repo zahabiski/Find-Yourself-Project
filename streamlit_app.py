@@ -219,6 +219,3 @@ if center_button:
         st.session_state.submitted_answers = st.session_state.answers.copy()
         placeholder.success("Thank you for your answers!", icon="✅")
 
-        for question, answer in st.session_state.submitted_answers.items():
-            st.write(f"{question} : {answer}")
-
