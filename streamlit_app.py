@@ -52,9 +52,10 @@ div.stButton > button:first-child {
 /* Questions */
 div[data-testid="stMarkdownContainer"] > p strong {
     font-size: 25px;   
-    display: inline-block; 
+    display: inline-block;
 }
-
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
 
