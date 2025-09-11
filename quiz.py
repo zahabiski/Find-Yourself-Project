@@ -220,13 +220,6 @@ st.sidebar.header("Progress")
 progress_bar = st.sidebar.progress(0)
 progress_text = st.sidebar.empty()
 
-st.sidebar.markdown("**Questions:**")
-for i, (question, ans) in enumerate(st.session_state.answers.items(), start=1):    # dynamicaly check either the que. was answered or not
-    if ans is None:
-        st.sidebar.markdown(f"**{i}) ❌ Not yet**")
-    else:
-        st.sidebar.markdown(f"**{i}) ✅ Answered**")
-
 # Progress calc. (dynamical)
 answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
 progress = int((answered_count / total_questions) * 100)
@@ -271,6 +264,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 time.sleep(6)
 placeholder.empty()
+
 
 
 
