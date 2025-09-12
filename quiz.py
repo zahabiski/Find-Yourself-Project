@@ -64,10 +64,10 @@ for i, q in enumerate(quiz, start=1):
 
 answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
 progress = int((answered_count / len(quiz)) * 100)
-with progress_placeholder.container():
-    st.header("Progress")
-    st.progress(progress)
-    st.write(f"Done: {answered_count}/{len(quiz)} ({progress}%)")
+
+st.write("Progress")
+st.progress(progress)
+st.write(f"Done: {answered_count}/{len(quiz)} ({progress}%)")
 # ---------------------- SUBMIT BUTTON ----------------------
 col1, col2, col3 = st.columns(3)
 with col1: pass
@@ -98,8 +98,3 @@ st.markdown("""
     """, unsafe_allow_html=True)
 time.sleep(6)
 placeholder.empty()
-
-
-
-
-
