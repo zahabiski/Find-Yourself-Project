@@ -1,13 +1,10 @@
 # ---------------------- IMPORTS ----------------------
-
 import streamlit as st
 from PIL import Image
 import time
-
 # ---------------------- PAGE CONFIG ----------------------
 im = Image.open("logo-round.png")
 st.set_page_config(page_title="Find Yourself", page_icon=im, layout="centered")
-
 # ---------------------- CUSTOM STYLES ----------------------
 st.markdown("""
 <style>
@@ -20,7 +17,6 @@ div.stProgress {
     padding: 10px;
     border-bottom: 2px solid black;
 }
-
 /* Button Submit */
 div.stButton > button:first-child {
     font-weight: bold;
@@ -32,23 +28,19 @@ div.stButton > button:first-child {
     border-radius: 10px;
     cursor: pointer;
 }
-
 /* Questions */
 div[data-testid="stMarkdownContainer"] > p strong {
     font-size: 25px;
     display: inline-block;
 }
-
 /* Padding for radio buttons */
 div[role="radiogroup"] {
     margin-top: -25px;
 }
-
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
-
 # ---------------------- QUIZ DATA ----------------------
 quiz = [
     {"question": " What is your Gender?", "options": ["Male", "Female"]},
@@ -64,11 +56,9 @@ quiz = [
     {"question": " Do you enjoy leading people and organizing processes?", "options": ["Yes, I love lead and being responsible","Mostly, but I'm bad at managing tasks","Sometimes, It depends","Not Really, but I can manage tasks well","No, I’d rather be a part of the machine"]},
     {"question": " Do you like working with visuals, sounds and building artistic things?", "options": ["Yes, I’m pretty creative in these areas","Mostly, but hard in realization","Sometimes, It depends","Not Really, but I can bring others' ideas to life","No, that’s absolutely not me"]}
 ]
-
 # ---------------------- SESSION STATE ----------------------
 if "answers" not in st.session_state:
     st.session_state.answers = {q["question"]: None for q in quiz}
-
 # ---------------------- PROGRESS PLACEHOLDER ----------------------
 progress_placeholder = st.empty()
 
@@ -82,10 +72,8 @@ def update_progress():
 
 # Initial progress bar
 update_progress()
-
 # ---------------------- PAGE HEADER ----------------------
 st.markdown("<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>", unsafe_allow_html=True)
-
 # ---------------------- QUIZ QUESTIONS ----------------------
 for i, q in enumerate(quiz, start=1):
     key = f"q{i}"
@@ -94,7 +82,6 @@ for i, q in enumerate(quiz, start=1):
     choice = st.radio("", q["options"], key=key)
     st.session_state.answers[q["question"]] = choice
     update_progress()
-
 # ---------------------- SUBMIT BUTTON ----------------------
 col1, col2, col3 = st.columns(3)
 with col1: pass
@@ -111,3 +98,4 @@ if center_button:
         placeholder.success("Thank you for your answers!", icon="✅")
         time.sleep(3)
         st.switch_page("pages/profile.py")
+
