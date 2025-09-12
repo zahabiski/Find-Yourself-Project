@@ -32,7 +32,7 @@ total_questions = len(quiz)
 if "answers" not in st.session_state:
     st.session_state.answers = {q["question"]: None for q in quiz}
 if "current_question" not in st.session_state:
-    st.session_state.current_question = 0 
+    st.session_state.current_question = 1 
 # ---------------------- PROGRESS BAR ----------------------
 st.header("Progress")
 answered_questions = sum(1 for a in st.session_state.answers.values() if a is not None)
@@ -124,3 +124,4 @@ footer {visibility: hidden;}
 </style>
 
 """, unsafe_allow_html=True)
+
