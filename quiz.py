@@ -1,11 +1,9 @@
 # ---------------------- IMPORTS ----------------------
-
 import streamlit as st
 from PIL import Image
 import time
 
 # ---------------------- PAGE CONFIG ----------------------
-
 im = Image.open("logo-round.png")
 
 st.set_page_config(
@@ -15,66 +13,49 @@ st.set_page_config(
 )
 
 # ---------------------- CUSTOM STYLES ----------------------
-
 st.markdown(
     """
     <style>
     .progress_container {
-        top:0;
         position: sticky;
+        top: 0;
         z-index: 100;
+        background-color: white;
+        padding: 10px;
+        border-bottom: 2px solid black;
     }
+
+    /* Button Submit */
+    div.stButton > button:first-child {
+        font-weight: bold;
+        padding: 12px 45px;
+        min-width: 120px;       
+        background-color: white;     
+        color: black;               
+        border: 2px solid black;  
+        border-radius: 10px;       
+        cursor: pointer;
+    }
+
+    /* Questions */
+    div[data-testid="stMarkdownContainer"] > p strong {
+        font-size: 25px;   
+        display: inline-block;
+    }
+
+    /* Padding for radio buttons */
+    div[role="radiogroup"] {
+        margin-top: -25px;
+    }
+
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
     </style>
     """,
     unsafe_allow_html=True
 )
 
-st.markdown("""
-<style>
-
-/* Button Submit */
-div.stButton > button:first-child {
-    size: 25px;           
-    font-style: bold;
-    padding: 12px 45px;
-    min-width: 120px;       
-    background-color: white;     
-    color: black;               
-    border: 2px solid black;  
-    border-radius: 10px;       
-    cursor: pointer;
-}
-
-/* "Progress" Sidebar */
-[data-testid="stSidebar"] h2 {
-    font-size: 35px;
-    font-weight: bold; 
-}
-
-/* BG */
-[data-testid="stSidebar"] {
-    background-color: #bdbababd;
-}
-
-/* Questions */
-div[data-testid="stMarkdownContainer"] > p strong {
-    font-size: 25px;   
-    display: inline-block;
-}
-
-/* Padding */
-div[role="radiogroup"] {
-    margin-top: -25px;
-}
-
-#MainMenu {visibility: hidden;}
-footer {visibility: hidden;}
-
-</style>
-""", unsafe_allow_html=True)
-
 # ---------------------- QUIZ DATA ----------------------
-
 quiz = [
     {"question": " What is your Gender?", "options": ["Male", "Female"]},
     {"question": " What is more related to you?", "options": ["work with nature","work with people","work with technics","work with art","work with symbols"]},
@@ -91,21 +72,16 @@ quiz = [
 ]
 
 # ---------------------- QUIZ LOGIC ----------------------
-
 total_questions = len(quiz)
 
-# Initialization of cycle
 if "answers" not in st.session_state:
     st.session_state.answers = {q["question"]: None for q in quiz}
 
 progress_placeholder = st.empty()
 
-# ---------------------- CALCULATE PROGRESS ------------------a----
-
 def update_progress():
     answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
     progress = int((answered_count / total_questions) * 100)
-    
     with progress_placeholder.container():
         st.markdown('<div class="progress_container">', unsafe_allow_html=True)
         st.subheader("Progress")
@@ -113,19 +89,16 @@ def update_progress():
         st.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
         st.markdown('</div>', unsafe_allow_html=True)
 
-# ---------------------- PAGE HEADER ----------------------
+update_progress()
 
 st.markdown(
     "<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>",
     unsafe_allow_html=True
 )
-update_progress()
-# ---------------------- SHOW QUIZ ----------------------
 
 for i, q in enumerate(quiz, start=1):
     key = f"q{i}"
-    if key not in st.session_state:
-        st.session_state[key] = None
+    st.session_state.setdefault(key, None)
 
     st.markdown(f"**{i}) {q['question']}**")
     choice = st.radio("", q["options"], key=key)
@@ -133,19 +106,10 @@ for i, q in enumerate(quiz, start=1):
     st.session_state.answers[q["question"]] = choice
     update_progress()
     
-# ---------------------- SUBMIT SECTION ----------------------
-
-st.write("")
-st.write("")
-st.write("")
-st.write("")
 col1, col2, col3 = st.columns(3)
-with col1:
-    pass
-with col2:
-    center_button = st.button('**Submit**')    # Centers the submit button
-with col3:
-    pass
+with col1: pass
+with col2: center_button = st.button('**Submit**')
+with col3: pass
 
 placeholder = st.empty()
 
@@ -153,24 +117,7 @@ if center_button:
     if any(v is None for v in st.session_state.answers.values()):
         placeholder.warning("Please, answer all the questions!", icon="❌")
     else:
-        st.session_state.submitted_answers = st.session_state.answers.copy()    # copies the answers to work with (dict. format)
+        st.session_state.submitted_answers = st.session_state.answers.copy()
         placeholder.success("Thank you for your answers!", icon="✅")
         time.sleep(3)
         st.switch_page("pages/profile.py")
-
-st.markdown("""
-        <style>
-            @keyframes fadeOut {
-                from { opacity: 1; }
-                to { opacity: 0; }
-            }
-            .stAlert {
-                animation: fadeOut 6s ease;
-            }
-        </style>
-    """, unsafe_allow_html=True)
-
-time.sleep(6)
-placeholder.empty()
-
-
