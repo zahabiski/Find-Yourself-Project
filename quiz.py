@@ -16,6 +16,8 @@ st.set_page_config(
 
 # ---------------------- PAGE HEADER ----------------------
 
+progress_placeholder = st.empty()
+
 st.markdown(
     "<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>",
     unsafe_allow_html=True
@@ -148,8 +150,6 @@ total_questions = len(quiz)
 if "answers" not in st.session_state:
     st.session_state.answers = {q["question"]: None for q in quiz}
 
-progress_placeholder = st.empty()
-
 # ---------------------- SHOW QUIZ ----------------------
 
 for i, q in enumerate(quiz, start=1):
@@ -268,6 +268,7 @@ footer {visibility: hidden;}
 
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
