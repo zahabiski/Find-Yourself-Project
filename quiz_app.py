@@ -44,8 +44,6 @@ for i, q in enumerate(quiz, start=1):
     if key not in st.session_state:
         st.session_state[key] = None
 
-    st.markdown(f"**{i}) {q['question']}**")
-
     st.session_state.answers[q["question"]] = st.radio(
         f"**{i}) {q['question']}**",
         q["options"],
@@ -121,5 +119,6 @@ div[role="radiogroup"] {
 footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
+
 
 
