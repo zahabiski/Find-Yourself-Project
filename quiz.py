@@ -62,16 +62,15 @@ if "answers" not in st.session_state:
 # ---------------------- PROGRESS PLACEHOLDER ----------------------
 progress_placeholder = st.empty()
 
-def update_progress():
-    answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
-    progress = int((answered_count / len(quiz)) * 100)
-    with progress_placeholder.container():
-        st.header("Progress")
-        st.progress(progress)
-        st.write(f"Done: {answered_count}/{len(quiz)} ({progress}%)")
+
+answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
+progress = int((answered_count / len(quiz)) * 100)
+with progress_placeholder.container():
+    st.header("Progress")
+    st.progress(progress)
+    st.write(f"Done: {answered_count}/{len(quiz)} ({progress}%)")
 
 # Initial progress bar
-update_progress()
 # ---------------------- PAGE HEADER ----------------------
 st.markdown("<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>", unsafe_allow_html=True)
 # ---------------------- QUIZ QUESTIONS ----------------------
@@ -81,7 +80,6 @@ for i, q in enumerate(quiz, start=1):
     st.markdown(f"**{i}) {q['question']}**")
     choice = st.radio("", q["options"], key=key)
     st.session_state.answers[q["question"]] = choice
-    update_progress()
 # ---------------------- SUBMIT BUTTON ----------------------
 col1, col2, col3 = st.columns(3)
 with col1: pass
@@ -112,3 +110,4 @@ st.markdown("""
     """, unsafe_allow_html=True)
 time.sleep(6)
 placeholder.empty()
+
