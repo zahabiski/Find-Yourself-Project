@@ -4,6 +4,23 @@ import streamlit as st
 from PIL import Image
 import time
 
+# ---------------------- PAGE CONFIG ----------------------
+
+im = Image.open("logo-round.png")
+
+st.set_page_config(
+    page_title="Find Yourself",
+    page_icon=im,
+    layout="centered"
+)
+
+# ---------------------- PAGE HEADER ----------------------
+
+st.markdown(
+    "<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>",
+    unsafe_allow_html=True
+)
+
 # ---------------------- QUIZ DATA ----------------------
 
 quiz = [
@@ -131,6 +148,16 @@ total_questions = len(quiz)
 if "answers" not in st.session_state:
     st.session_state.answers = {q["question"]: None for q in quiz}
 
+st.header("Progress")
+progress_bar = st.progress(0)
+progress_text = st.empty()
+
+# Progress calc. (dynamical)
+answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
+progress = int((answered_count / total_questions) * 100)
+progress_bar.progress(progress)
+progress_text.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
+
 # shows quiz
 for i, q in enumerate(quiz, start=1):
     key = f"q{i}"
@@ -150,33 +177,6 @@ st.session_state.answers = {
     q["question"]: st.session_state[f"q{i+1}"]
     for i, q in enumerate(quiz)
 }
-
-# ---------------------- PAGE CONFIG ----------------------
-
-st.header("Progress")
-progress_bar = st.progress(0)
-progress_text = st.empty()
-
-# Progress calc. (dynamical)
-answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
-progress = int((answered_count / total_questions) * 100)
-progress_bar.progress(progress)
-progress_text.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
-
-im = Image.open("logo-round.png")
-
-st.set_page_config(
-    page_title="Find Yourself",
-    page_icon=im,
-    layout="centered"
-)
-
-# ---------------------- PAGE HEADER ----------------------
-
-st.markdown(
-    "<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>",
-    unsafe_allow_html=True
-)
 
 # ---------------------- CUSTOM STYLES ----------------------
 
@@ -262,6 +262,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 time.sleep(6)
 placeholder.empty()
+
 
 
 
