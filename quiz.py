@@ -113,15 +113,13 @@ def update_progress():
         st.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
         st.markdown('</div>', unsafe_allow_html=True)
 
-update_progress()
-
 # ---------------------- PAGE HEADER ----------------------
 
 st.markdown(
     "<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>",
     unsafe_allow_html=True
 )
-
+update_progress()
 # ---------------------- SHOW QUIZ ----------------------
 
 for i, q in enumerate(quiz, start=1):
@@ -174,4 +172,5 @@ st.markdown("""
 
 time.sleep(6)
 placeholder.empty()
+
 
