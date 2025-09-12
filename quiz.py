@@ -65,8 +65,8 @@ progress_placeholder = st.empty()
 def update_progress():
     answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
     progress = int((answered_count / len(quiz)) * 100)
-    with progress_placeholder:
-        st.subheader("Progress")
+    with progress_placeholder.container():
+        st.header("Progress")
         st.progress(progress)
         st.write(f"Done: {answered_count}/{len(quiz)} ({progress}%)")
 
@@ -98,4 +98,17 @@ if center_button:
         placeholder.success("Thank you for your answers!", icon="✅")
         time.sleep(3)
         st.switch_page("pages/profile.py")
-
+        
+st.markdown("""
+        <style>
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+            .stAlert {
+                animation: fadeOut 6s ease;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+time.sleep(6)
+placeholder.empty()
