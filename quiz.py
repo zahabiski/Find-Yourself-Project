@@ -1,21 +1,18 @@
 # ---------------------- IMPORTS ----------------------
+
 import streamlit as st
 from PIL import Image
 import time
 
 # ---------------------- PAGE CONFIG ----------------------
 im = Image.open("logo-round.png")
-
-st.set_page_config(
-    page_title="Find Yourself",
-    page_icon=im,
-    layout="centered"
-)
+st.set_page_config(page_title="Find Yourself", page_icon=im, layout="centered")
 
 # ---------------------- CUSTOM STYLES ----------------------
 st.markdown("""
 <style>
-.progress-container {
+/* Sticky top bar for progress */
+div.stProgress {
     position: sticky;
     top: 0;
     z-index: 100;
@@ -68,40 +65,37 @@ quiz = [
     {"question": " Do you like working with visuals, sounds and building artistic things?", "options": ["Yes, I’m pretty creative in these areas","Mostly, but hard in realization","Sometimes, It depends","Not Really, but I can bring others' ideas to life","No, that’s absolutely not me"]}
 ]
 
-# ---------------------- QUIZ LOGIC ----------------------
-total_questions = len(quiz)
-
+# ---------------------- SESSION STATE ----------------------
 if "answers" not in st.session_state:
     st.session_state.answers = {q["question"]: None for q in quiz}
 
+# ---------------------- PROGRESS PLACEHOLDER ----------------------
 progress_placeholder = st.empty()
 
-# ---------------------- PROGRESS FUNCTION ----------------------
 def update_progress():
     answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
-    progress = int((answered_count / total_questions) * 100)
-    with progress_placeholder.container():
-        st.markdown('<div class="progress-container">', unsafe_allow_html=True)
+    progress = int((answered_count / len(quiz)) * 100)
+    with progress_placeholder:
         st.subheader("Progress")
         st.progress(progress)
-        st.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
-        st.markdown('</div>', unsafe_allow_html=True)
+        st.write(f"Done: {answered_count}/{len(quiz)} ({progress}%)")
+
+# Initial progress bar
+update_progress()
 
 # ---------------------- PAGE HEADER ----------------------
-update_progress()
 st.markdown("<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>", unsafe_allow_html=True)
 
-# ---------------------- SHOW QUIZ ----------------------
+# ---------------------- QUIZ QUESTIONS ----------------------
 for i, q in enumerate(quiz, start=1):
     key = f"q{i}"
     st.session_state.setdefault(key, None)
-
     st.markdown(f"**{i}) {q['question']}**")
     choice = st.radio("", q["options"], key=key)
     st.session_state.answers[q["question"]] = choice
     update_progress()
 
-# ---------------------- SUBMIT SECTION ----------------------
+# ---------------------- SUBMIT BUTTON ----------------------
 col1, col2, col3 = st.columns(3)
 with col1: pass
 with col2: center_button = st.button('**Submit**')
