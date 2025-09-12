@@ -43,8 +43,11 @@ for i, q in enumerate(quiz, start=1):
     key = f"q{i}" 
     if key not in st.session_state: 
         st.session_state[key] = None 
-    st.markdown(f"**{i}) {q['question']}**") 
-    st.radio( "", q["options"], key=key )
+    st.session_state.answers[q["question"]] = st.radio(
+        f"**{i}) {q['question']}**",
+        q["options"],
+        key=key
+    )
     
     answered_questions = sum(1 for a in st.session_state.answers.values() if a is not None)
     progress_value = answered_questions / len(quiz)
@@ -119,6 +122,7 @@ div[role="radiogroup"] {
 footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
