@@ -54,6 +54,7 @@ for i, q in enumerate(quiz, start=1):
         key=key
     )
     
+    st.session_state.answers[q["question"]] = selected
 for i, q in enumerate(quiz, start=1):
     st.session_state.answers[q["question"]] = st.session_state.get(f"q{i}")
 # ---------------------- SUBMIT SECTION ----------------------
@@ -124,4 +125,5 @@ footer {visibility: hidden;}
 </style>
 
 """, unsafe_allow_html=True)
+
 
