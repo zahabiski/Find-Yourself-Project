@@ -9,6 +9,7 @@ import time
 st.header("Progress")
 progress_bar = st.progress(0)
 progress_text = st.empty()
+progress_text.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
 
 im = Image.open("logo-round.png")
 
@@ -220,15 +221,10 @@ st.session_state.answers = {
     
 # ---------------------- SIDEBAR PROGRESS ----------------------
 
-st.sidebar.header("Progress")
-progress_bar = st.sidebar.progress(0)
-progress_text = st.sidebar.empty()
-
 # Progress calc. (dynamical)
 answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
 progress = int((answered_count / total_questions) * 100)
 progress_bar.progress(progress)
-progress_text.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
 
 # ---------------------- SUBMIT SECTION ----------------------
 
@@ -268,6 +264,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 time.sleep(6)
 placeholder.empty()
+
 
 
 
