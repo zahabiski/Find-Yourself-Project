@@ -60,15 +60,19 @@ for i, q in enumerate(quiz, start=1):
 
     st.session_state.answers[q["question"]] = choice
 
+    update_progress()
+
 # ---------------------- CALCULATE PROGRESS ----------------------
 
-answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
-progress = int((answered_count / total_questions) * 100)
+def update_progress():
+    answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
+    progress = int((answered_count / total_questions) * 100)
+    
+    with progress_placeholder.container():
+        st.subheader("Progress")
+        st.progress(progress)
+        st.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
 
-with progress_placeholder.container():
-    st.header("Progress")
-    progress_bar = st.progress(progress)
-    st.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
     
 # ---------------------- SUBMIT SECTION ----------------------
 
@@ -168,6 +172,7 @@ footer {visibility: hidden;}
 
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
