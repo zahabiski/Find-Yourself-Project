@@ -27,28 +27,11 @@ quiz = [
     {"question": " Do you like working with visuals, sounds and building artistic things?", "options": ["Yes, I’m pretty creative in these areas","Mostly, but hard in realization","Sometimes, It depends","Not Really, but I can bring others' ideas to life","No, that’s absolutely not me"]}
 ]
 # ---------------------- QUIZ LOGIC ----------------------
-
 total_questions = len(quiz)
-
 # Initialization of cycle
 if "answers" not in st.session_state:
     st.session_state.answers = {q["question"]: None for q in quiz}
-
-st.sidebar.header("Progress")
-progress_bar = st.sidebar.progress(0)
-progress_text = st.empty()
-
-# Progress calc. (dynamical)
-answered_count = sum(
-    1 for i in range(1, total_questions+1) 
-    if st.session_state.get(f"q{i}") is not None
-)
-progress = int((answered_count / total_questions) * 100)
-progress_bar.progress(progress)
-progress_text.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
-
-
-# shows quiz
+# ---------------------- SHOW QUIZ ----------------------
 for i, q in enumerate(quiz, start=1):
     key = f"q{i}"
 
@@ -66,7 +49,6 @@ for i, q in enumerate(quiz, start=1):
 for i, q in enumerate(quiz, start=1):
     st.session_state.answers[q["question"]] = st.session_state.get(f"q{i}")
 # ---------------------- SUBMIT SECTION ----------------------
-
 st.write("")
 st.write("")
 st.write("")
@@ -75,9 +57,7 @@ col1, col2, col3 = st.columns(3)
 with col1: pass
 with col2: center_button = st.button('**Submit**')    # Centers the submit button
 with col3: pass
-
 placeholder = st.empty()
-
 if center_button:
     if any(v is None for v in st.session_state.answers.values()):
         placeholder.warning("Please, answer all the questions!", icon="❌")
@@ -85,7 +65,6 @@ if center_button:
         st.session_state.submitted_answers = st.session_state.answers.copy()    # copies the answers to work with (dict. format)
         placeholder.success("Thank you for your answers!", icon="✅")
         st.switch_page("pages/profile.py")
-
 st.markdown("""
         <style>
             @keyframes fadeOut {
@@ -99,12 +78,9 @@ st.markdown("""
     """, unsafe_allow_html=True)
 time.sleep(6)
 placeholder.empty()
-
 # ---------------------- CUSTOM STYLES ----------------------
-
 st.markdown("""
 <style>
-
 /* Button Submit */
 div.stButton > button:first-child {
     size: 25px;           
@@ -117,34 +93,29 @@ div.stButton > button:first-child {
     border-radius: 10px;       
     cursor: pointer;
 }
-
 /* "Progress" Sidebar */
 [data-testid="stSidebar"] h2 {
     font-size: 35px;
     font-weight: bold; 
 }
-
 /* BG */
 [data-testid="stSidebar"] {
     background-color: #bdbababd;
 }
-
 /* Questions */
 div[data-testid="stMarkdownContainer"] > p strong {
     font-size: 25px;   
     display: inline-block;
 }
-
 /* Padding */
 div[role="radiogroup"] {
     margin-top: -25px;
 }
-
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
-
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
