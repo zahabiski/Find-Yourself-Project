@@ -2,7 +2,6 @@
 import streamlit as st
 from PIL import Image
 import time
-
 # ---------------------- PAGE CONFIG ----------------------
 im = Image.open("logo-round.png")
 st.set_page_config(
@@ -10,10 +9,8 @@ st.set_page_config(
     page_icon=im,
     layout="centered"
 )
-
 # ---------------------- PAGE HEADER ----------------------
 st.markdown("<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>", unsafe_allow_html=True)
-
 # ---------------------- QUIZ DATA ----------------------
 quiz = [
     {"question": " What is your Gender?", "options": ["Male", "Female"]},
@@ -29,14 +26,16 @@ quiz = [
     {"question": " Do you enjoy leading people and organizing processes?", "options": ["Yes, I love lead and being responsible","Mostly, but I'm bad at managing tasks","Sometimes, It depends","Not Really, but I can manage tasks well","No, I’d rather be a part of the machine"]},
     {"question": " Do you like working with visuals, sounds and building artistic things?", "options": ["Yes, I’m pretty creative in these areas","Mostly, but hard in realization","Sometimes, It depends","Not Really, but I can bring others' ideas to life","No, that’s absolutely not me"]}
 ]
-
 # ---------------------- QUIZ LOGIC ----------------------
 total_questions = len(quiz)
-
-# Initialize session state
+# Initialization of cycle
 if "answers" not in st.session_state:
     st.session_state.answers = {q["question"]: None for q in quiz}
-
+# ---------------------- PROGRESS BAR ---------------------- 
+st.header("Progress") answered_questions = sum(1 for a in st.session_state.answers.values() if a is not None) 
+progress_value = answered_questions / total_questions 
+st.progress(progress_value) 
+st.write(f"Done: {answered_questions}/{total_questions}")
 # ---------------------- SHOW QUIZ ----------------------
 for i, q in enumerate(quiz, start=1):
     key = f"q{i}"
@@ -44,56 +43,53 @@ for i, q in enumerate(quiz, start=1):
     if key not in st.session_state:
         st.session_state[key] = None
 
-    # Radio button and immediate answer update
-    st.session_state.answers[q["question"]] = st.radio(
-        f"**{i}) {q['question']}**",
+    st.markdown(f"**{i}) {q['question']}**")
+
+    st.radio(
+        "",
         q["options"],
         key=key
     )
-
-# ---------------------- PROGRESS BAR ----------------------
-answered_questions = sum(1 for a in st.session_state.answers.values() if a is not None)
-progress_value = answered_questions / total_questions
-st.header("Progress")
-st.progress(progress_value)
-st.write(f"Done: {answered_questions}/{total_questions}")
-
+    
+for i, q in enumerate(quiz, start=1):
+    st.session_state.answers[q["question"]] = st.session_state.get(f"q{i}")
 # ---------------------- SUBMIT SECTION ----------------------
+st.write("")
+st.write("")
+st.write("")
+st.write("")
 col1, col2, col3 = st.columns(3)
 with col1: pass
 with col2: center_button = st.button('**Submit**')    # Centers the submit button
 with col3: pass
-
 placeholder = st.empty()
 if center_button:
     if any(v is None for v in st.session_state.answers.values()):
         placeholder.warning("Please, answer all the questions!", icon="❌")
     else:
-        st.session_state.submitted_answers = st.session_state.answers.copy()
+        st.session_state.submitted_answers = st.session_state.answers.copy()    # copies the answers to work with (dict. format)
         placeholder.success("Thank you for your answers!", icon="✅")
         st.switch_page("pages/profile.py")
-
-# Auto-clear the message after 6 seconds
 st.markdown("""
-<style>
-    @keyframes fadeOut {
-        from { opacity: 1; }
-        to { opacity: 0; }
-    }
-    .stAlert {
-        animation: fadeOut 6s ease;
-    }
-</style>
-""", unsafe_allow_html=True)
+        <style>
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+            .stAlert {
+                animation: fadeOut 6s ease;
+            }
+        </style>
+    """, unsafe_allow_html=True)
 time.sleep(6)
 placeholder.empty()
-
 # ---------------------- CUSTOM STYLES ----------------------
 st.markdown("""
 <style>
 /* Button Submit */
 div.stButton > button:first-child {
-    font-weight: bold;
+    size: 25px;           
+    font-style: bold;
     padding: 12px 45px;
     min-width: 120px;       
     background-color: white;     
