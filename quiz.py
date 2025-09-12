@@ -69,9 +69,12 @@ def update_progress():
     progress = int((answered_count / total_questions) * 100)
     
     with progress_placeholder.container():
+        st.markdown('<div class="progress_container">', unsafe_allow_html=True)
         st.subheader("Progress")
         st.progress(progress)
         st.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
+        st.markdown('</div>', unsafe_allow_html=True)
+
 
     
 # ---------------------- SUBMIT SECTION ----------------------
@@ -172,6 +175,7 @@ footer {visibility: hidden;}
 
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
