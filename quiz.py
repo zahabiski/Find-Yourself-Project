@@ -59,8 +59,10 @@ quiz = [
 # ---------------------- SESSION STATE ----------------------
 if "answers" not in st.session_state:
     st.session_state.answers = {q["question"]: None for q in quiz}
+# ---------------------- PAGE HEADER ----------------------
+st.markdown("<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>", unsafe_allow_html=True)
 # ---------------------- PROGRESS PLACEHOLDER ----------------------
-# progress_placeholder = st.empty()
+progress_placeholder = st.empty()
 # ---------------------- QUIZ QUESTIONS ----------------------
 for i, q in enumerate(quiz, start=1):
     key = f"q{i}"
@@ -71,15 +73,10 @@ for i, q in enumerate(quiz, start=1):
 
 answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
 progress = int((answered_count / len(quiz)) * 100)
-progress_placeholder = st.empty()
 with progress_placeholder.container():
     st.header("Progress")
     st.progress(progress)
     st.write(f"Done: {answered_count}/{len(quiz)} ({progress}%)")
-
-# Initial progress bar
-# ---------------------- PAGE HEADER ----------------------
-st.markdown("<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>", unsafe_allow_html=True)
 # ---------------------- SUBMIT BUTTON ----------------------
 col1, col2, col3 = st.columns(3)
 with col1: pass
@@ -110,6 +107,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 time.sleep(6)
 placeholder.empty()
+
 
 
 
