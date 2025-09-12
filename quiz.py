@@ -19,7 +19,7 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    .progress_placeholder {
+    .progress_container {
         top:0;
         position: sticky;
         z-index: 100;
@@ -174,3 +174,4 @@ st.markdown("""
 
 time.sleep(6)
 placeholder.empty()
+
