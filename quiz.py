@@ -15,16 +15,6 @@ st.set_page_config(
 # ---------------------- CUSTOM STYLES ----------------------
 st.markdown(
     """
-    <style>
-    .progress_container {
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        background-color: white;
-        padding: 10px;
-        border-bottom: 2px solid black;
-    }
-
     /* Button Submit */
     div.stButton > button:first-child {
         font-weight: bold;
@@ -121,3 +111,4 @@ if center_button:
         placeholder.success("Thank you for your answers!", icon="✅")
         time.sleep(3)
         st.switch_page("pages/profile.py")
+
