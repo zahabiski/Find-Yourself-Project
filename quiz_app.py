@@ -30,14 +30,6 @@ if "answers" not in st.session_state:
     st.session_state.answers = {q["question"]: None for q in quiz}
 # ---------------------- PROGRESS BAR ----------------------
 progress_container = st.container()
-
-def update_progress():
-    answered = sum(1 for a in st.session_state.answers.values() if a is not None)
-    progress = answered / len(quiz)
-    with progress_container:
-        progress_container.empty()  # Clear previous
-        st.progress(progress)
-        st.write(f"Done: {answered}/{len(quiz)}")
 # ---------------------- PAGE HEADER ----------------------
 st.markdown("<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>", unsafe_allow_html=True)
 # ---------------------- SHOW QUIZ ---------------------- 
@@ -48,7 +40,12 @@ for i, q in enumerate(quiz, start=1):
     st.markdown(f"**{i}) {q['question']}**") 
     st.radio( "", q["options"], key=key )
     
-update_progress()
+answered = sum(1 for a in st.session_state.answers.values() if a is not None)
+progress = answered / len(quiz)
+with progress_container:
+    progress_container.empty()  # Clear old
+    st.progress(progress)
+    st.write(f"Done: {answered}/{len(quiz)}")
 for i, q in enumerate(quiz, start=1): 
     st.session_state.answers[q["question"]] = st.session_state.get(f"q{i}")
 # ---------------------- SUBMIT SECTION ----------------------
@@ -118,6 +115,7 @@ div[role="radiogroup"] {
 footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
