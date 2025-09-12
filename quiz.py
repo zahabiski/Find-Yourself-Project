@@ -167,10 +167,22 @@ for i, q in enumerate(quiz, start=1):
 answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
 progress = int((answered_count / total_questions) * 100)
 
-with progress_placeholder.container():
-    st.header("Progress")
-    progress_bar = st.progress(progress)
-    st.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
+with progress_placeholder:
+    st.markdown(
+        f"""
+        <div class="progress-header">
+            <h2>Progress</h2>
+            <div style="width:100%; background:#ddd; border-radius:10px;">
+                <div style="width:{progress}%; background:#4caf50; 
+                            padding:5px; border-radius:10px; text-align:center; 
+                            color:white; font-weight:bold;">
+                    {answered_count}/{total_questions} ({progress}%)
+                </div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
     
 # ---------------------- SUBMIT SECTION ----------------------
 
@@ -212,6 +224,22 @@ time.sleep(6)
 placeholder.empty()
 
 # ---------------------- CUSTOM STYLES ----------------------
+
+st.markdown(
+    """
+    <style>
+    .progress-header {
+        position: sticky;
+        top: 0;
+        background: white;
+        padding: 10px 0;
+        z-index: 999;
+        border-bottom: 2px solid #ddd;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 st.markdown("""
 <style>
@@ -256,3 +284,4 @@ footer {visibility: hidden;}
 
 </style>
 """, unsafe_allow_html=True)
+
