@@ -26,32 +26,24 @@ quiz = [
     {"question": " Do you enjoy leading people and organizing processes?", "options": ["Yes, I love lead and being responsible","Mostly, but I'm bad at managing tasks","Sometimes, It depends","Not Really, but I can manage tasks well","No, I’d rather be a part of the machine"]},
     {"question": " Do you like working with visuals, sounds and building artistic things?", "options": ["Yes, I’m pretty creative in these areas","Mostly, but hard in realization","Sometimes, It depends","Not Really, but I can bring others' ideas to life","No, that’s absolutely not me"]}
 ]
-# ---------------------- QUIZ LOGIC ----------------------
-total_questions = len(quiz)
-# Initialization of cycle
-if "answers" not in st.session_state:
-    st.session_state.answers = {q["question"]: None for q in quiz}
-# ---------------------- PROGRESS BAR ---------------------- 
-st.header("Progress") 
+# ---------------------- QUIZ LOGIC ---------------------- 
+total_questions = len(quiz) # Initialization of cycle 
+if "answers" not in st.session_state: 
+    st.session_state.answers = {q["question"]: None for q in quiz} 
+    # ---------------------- PROGRESS BAR ---------------------- 
+st.header("Progress")
 answered_questions = sum(1 for a in st.session_state.answers.values() if a is not None) 
 progress_value = answered_questions / total_questions 
 st.progress(progress_value) 
-st.write(f"Done: {answered_questions}/{total_questions}")
-# ---------------------- SHOW QUIZ ----------------------
-for i, q in enumerate(quiz, start=1):
-    key = f"q{i}"
-
-    if key not in st.session_state:
-        st.session_state[key] = None
-
-      st.markdown(f"**{i}) {q['question']}**")
-
-    st.radio(
-        "",
-        q["options"],
-        key=key
-    )
-for i, q in enumerate(quiz, start=1):
+st.write(f"Done: {answered_questions}/{total_questions}") 
+# ---------------------- SHOW QUIZ ---------------------- 
+for i, q in enumerate(quiz, start=1): 
+    key = f"q{i}" if key not in st.session_state: 
+    st.session_state[key] = None 
+    st.markdown(f"**{i}) {q['question']}**") 
+    st.radio( "", q["options"], key=key ) 
+    
+for i, q in enumerate(quiz, start=1): 
     st.session_state.answers[q["question"]] = st.session_state.get(f"q{i}")
 # ---------------------- SUBMIT SECTION ----------------------
 st.write("")
@@ -120,6 +112,7 @@ div[role="radiogroup"] {
 footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
