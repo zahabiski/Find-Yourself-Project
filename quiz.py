@@ -148,15 +148,7 @@ total_questions = len(quiz)
 if "answers" not in st.session_state:
     st.session_state.answers = {q["question"]: None for q in quiz}
 
-st.header("Progress")
-progress_bar = st.progress(0)
-progress_text = st.empty()
-
-# Progress calc. (dynamical)
-answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
-progress = int((answered_count / total_questions) * 100)
-progress_bar.progress(progress)
-progress_text.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
+progress_placeholder = st.empty()
 
 # ---------------------- SHOW QUIZ ----------------------
 
@@ -168,10 +160,18 @@ for i, q in enumerate(quiz, start=1):
     st.markdown(f"**{i}) {q['question']}**")
     choice = st.radio("", q["options"], key=key)
 
-    # Update answers dict immediately
     st.session_state.answers[q["question"]] = choice
 
+# ---------------------- CALCULATE PROGRESS ----------------------
 
+answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
+progress = int((answered_count / total_questions) * 100)
+
+with progress_placeholder.container():
+    st.header("Progress")
+    progress_bar = st.progress(progress)
+    st.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
+    
 # ---------------------- SUBMIT SECTION ----------------------
 
 st.write("")
@@ -256,14 +256,3 @@ footer {visibility: hidden;}
 
 </style>
 """, unsafe_allow_html=True)
-
-
-
-
-
-
-
-
-
-
-
