@@ -158,25 +158,58 @@ progress = int((answered_count / total_questions) * 100)
 progress_bar.progress(progress)
 progress_text.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
 
-# shows quiz
+# ---------------------- SHOW QUIZ ----------------------
+
 for i, q in enumerate(quiz, start=1):
     key = f"q{i}"
-
     if key not in st.session_state:
         st.session_state[key] = None
 
     st.markdown(f"**{i}) {q['question']}**")
+    choice = st.radio("", q["options"], key=key)
 
-    st.radio(
-        "",
-        q["options"],
-        key=key
-    )
-    
-st.session_state.answers = {
-    q["question"]: st.session_state[f"q{i+1}"]
-    for i, q in enumerate(quiz)
-}
+    # Update answers dict immediately
+    st.session_state.answers[q["question"]] = choice
+
+
+# ---------------------- SUBMIT SECTION ----------------------
+
+st.write("")
+st.write("")
+st.write("")
+st.write("")
+col1, col2, col3 = st.columns(3)
+with col1:
+    pass
+with col2:
+    center_button = st.button('**Submit**')    # Centers the submit button
+with col3:
+    pass
+
+placeholder = st.empty()
+
+if center_button:
+    if any(v is None for v in st.session_state.answers.values()):
+        placeholder.warning("Please, answer all the questions!", icon="❌")
+    else:
+        st.session_state.submitted_answers = st.session_state.answers.copy()    # copies the answers to work with (dict. format)
+        placeholder.success("Thank you for your answers!", icon="✅")
+        time.sleep(3)
+        st.switch_page("pages/profile.py")
+
+st.markdown("""
+        <style>
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+            .stAlert {
+                animation: fadeOut 6s ease;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+time.sleep(6)
+placeholder.empty()
 
 # ---------------------- CUSTOM STYLES ----------------------
 
@@ -223,45 +256,6 @@ footer {visibility: hidden;}
 
 </style>
 """, unsafe_allow_html=True)
-
-# ---------------------- SUBMIT SECTION ----------------------
-
-st.write("")
-st.write("")
-st.write("")
-st.write("")
-col1, col2, col3 = st.columns(3)
-with col1:
-    pass
-with col2:
-    center_button = st.button('**Submit**')    # Centers the submit button
-with col3:
-    pass
-
-placeholder = st.empty()
-
-if center_button:
-    if any(v is None for v in st.session_state.answers.values()):
-        placeholder.warning("Please, answer all the questions!", icon="❌")
-    else:
-        st.session_state.submitted_answers = st.session_state.answers.copy()    # copies the answers to work with (dict. format)
-        placeholder.success("Thank you for your answers!", icon="✅")
-        time.sleep(3)
-        st.switch_page("pages/profile.py")
-
-st.markdown("""
-        <style>
-            @keyframes fadeOut {
-                from { opacity: 1; }
-                to { opacity: 0; }
-            }
-            .stAlert {
-                animation: fadeOut 6s ease;
-            }
-        </style>
-    """, unsafe_allow_html=True)
-time.sleep(6)
-placeholder.empty()
 
 
 
