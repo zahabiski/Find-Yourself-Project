@@ -49,7 +49,7 @@ for i, q in enumerate(quiz, start=1):
     answered_questions = sum(1 for a in st.session_state.answers.values() if a is not None)
     progress_value = answered_questions / len(quiz)
     progress_bar.progress(progress_value)
-    progress_text.markdown(f"Done: {answered_questions}/{len(quiz)}")
+    progress_text.write(f"Done: {answered_questions}/{len(quiz)}")
     
 for i, q in enumerate(quiz, start=1): 
     st.session_state.answers[q["question"]] = st.session_state.get(f"q{i}")
@@ -120,6 +120,7 @@ div[role="radiogroup"] {
 footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
