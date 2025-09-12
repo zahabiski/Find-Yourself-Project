@@ -9,8 +9,6 @@ st.set_page_config(
     page_icon=im,
     layout="centered"
 )
-# ---------------------- PAGE HEADER ----------------------
-st.markdown("<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>", unsafe_allow_html=True)
 # ---------------------- QUIZ DATA ----------------------
 quiz = [
     {"question": " What is your Gender?", "options": ["Male", "Female"]},
@@ -30,23 +28,31 @@ quiz = [
 total_questions = len(quiz) # Initialization of cycle 
 if "answers" not in st.session_state: 
     st.session_state.answers = {q["question"]: None for q in quiz}
+# ---------------------- PROGRESS BAR ----------------------
+st.header("Progress")
+
+# Calculate progress dynamically
+answered_questions = sum(1 for a in st.session_state.get("answers", {}).values() if a is not None)
+progress_value = answered_questions / len(quiz)
+progress_bar = st.progress(progress_value)
+progress_text = st.write(f"Done: {answered_questions}/{len(quiz)}")
+# ---------------------- PAGE HEADER ----------------------
+st.markdown("<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>", unsafe_allow_html=True)
 # ---------------------- SHOW QUIZ ---------------------- 
 for i, q in enumerate(quiz, start=1): 
     key = f"q{i}" 
     if key not in st.session_state: 
         st.session_state[key] = None 
     st.markdown(f"**{i}) {q['question']}**") 
-    st.radio( "", q["options"], key=key ) 
+    st.radio( "", q["options"], key=key )
+    
+    answered_questions = sum(1 for a in st.session_state.answers.values() if a is not None)
+    progress_value = answered_questions / len(quiz)
+    progress_bar.progress(progress_value)
+    progress_text.markdown(f"Done: {answered_questions}/{len(quiz)}")
     
 for i, q in enumerate(quiz, start=1): 
     st.session_state.answers[q["question"]] = st.session_state.get(f"q{i}")
-
-answered_questions = sum(1 for a in st.session_state.answers.values() if a is not None) 
-progress_value = answered_questions / total_questions
-# ---------------------- PROGRESS BAR ---------------------- 
-st.header("Progress")
-st.progress(progress_value) 
-st.write(f"Done: {answered_questions}/{total_questions}") 
 # ---------------------- SUBMIT SECTION ----------------------
 st.write("")
 st.write("")
@@ -114,6 +120,7 @@ div[role="radiogroup"] {
 footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
