@@ -31,10 +31,8 @@ if "answers" not in st.session_state:
 # ---------------------- PROGRESS BAR ----------------------
 progress_container = st.container()
 with progress_container:
-    # Compute progress based on current answers
     answered = sum(1 for a in st.session_state.answers.values() if a is not None)
     progress = answered / len(quiz)
-    
     st.markdown("<h3>Progress</h3>", unsafe_allow_html=True)
     st.progress(progress)
     st.write(f"Done: {answered}/{len(quiz)}")
@@ -48,10 +46,8 @@ for i, q in enumerate(quiz, start=1):
     st.markdown(f"**{i}) {q['question']}**") 
     st.radio( "", q["options"], key=key )
     
-answered = sum(1 for a in st.session_state.answers.values() if a is not None)
-progress = answered / len(quiz)
 with progress_container:
-    progress_container.empty()  # Clear old
+    progress_container.empty()
     st.progress(progress)
     st.write(f"Done: {answered}/{len(quiz)}")
 for i, q in enumerate(quiz, start=1): 
@@ -123,6 +119,7 @@ div[role="radiogroup"] {
 footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
