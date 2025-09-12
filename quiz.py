@@ -4,34 +4,13 @@ from PIL import Image
 import time
 # ---------------------- PAGE CONFIG ----------------------
 im = Image.open("logo-round.png")
-st.set_page_config(page_title="Find Yourself", page_icon=im, layout="centered")
-# ---------------------- CUSTOM STYLES ----------------------
-st.markdown("""
-<style>
-/* Button Submit */
-div.stButton > button:first-child {
-    font-weight: bold;
-    padding: 12px 45px;
-    min-width: 120px;
-    background-color: white;
-    color: black;
-    border: 2px solid black;
-    border-radius: 10px;
-    cursor: pointer;
-}
-/* Questions */
-div[data-testid="stMarkdownContainer"] > p strong {
-    font-size: 25px;
-    display: inline-block;
-}
-/* Padding for radio buttons */
-div[role="radiogroup"] {
-    margin-top: -25px;
-}
-#MainMenu {visibility: hidden;}
-footer {visibility: hidden;}
-</style>
-""", unsafe_allow_html=True)
+st.set_page_config(
+    page_title="Find Yourself",
+    page_icon=im,
+    layout="centered"
+)
+# ---------------------- PAGE HEADER ----------------------
+st.markdown("<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>", unsafe_allow_html=True)
 # ---------------------- QUIZ DATA ----------------------
 quiz = [
     {"question": " What is your Gender?", "options": ["Male", "Female"]},
@@ -47,31 +26,53 @@ quiz = [
     {"question": " Do you enjoy leading people and organizing processes?", "options": ["Yes, I love lead and being responsible","Mostly, but I'm bad at managing tasks","Sometimes, It depends","Not Really, but I can manage tasks well","No, I’d rather be a part of the machine"]},
     {"question": " Do you like working with visuals, sounds and building artistic things?", "options": ["Yes, I’m pretty creative in these areas","Mostly, but hard in realization","Sometimes, It depends","Not Really, but I can bring others' ideas to life","No, that’s absolutely not me"]}
 ]
-# ---------------------- SESSION STATE ----------------------
+# ---------------------- QUIZ LOGIC ----------------------
+
+total_questions = len(quiz)
+
+# Initialization of cycle
 if "answers" not in st.session_state:
     st.session_state.answers = {q["question"]: None for q in quiz}
-# ---------------------- PAGE HEADER ----------------------
-st.markdown("<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>", unsafe_allow_html=True)
-# ---------------------- PROGRESS PLACEHOLDER ----------------------
-progress_placeholder = st.empty()
-# ---------------------- QUIZ QUESTIONS ----------------------
+
+st.header("Progress")
+progress_bar = st.progress(0)
+progress_text = st.empty()
+
+# Progress calc. (dynamical)
+answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
+progress = int((answered_count / total_questions) * 100)
+progress_bar.progress(progress)
+progress_text.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
+
+# shows quiz
 for i, q in enumerate(quiz, start=1):
     key = f"q{i}"
-    st.session_state.setdefault(key, None)
+
+    if key not in st.session_state:
+        st.session_state[key] = None
+
     st.markdown(f"**{i}) {q['question']}**")
-    choice = st.radio("", q["options"], key=key)
-    st.session_state.answers[q["question"]] = choice
 
-answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
-progress = int((answered_count / len(quiz)) * 100)
+    st.radio(
+        "",
+        q["options"],
+        key=key
+    )
+    
+st.session_state.answers = {
+    q["question"]: st.session_state[f"q{i+1}"]
+    for i, q in enumerate(quiz)
+}
 
-st.write("Progress")
-st.progress(progress)
-st.write(f"Done: {answered_count}/{len(quiz)} ({progress}%)")
-# ---------------------- SUBMIT BUTTON ----------------------
+# ---------------------- SUBMIT SECTION ----------------------
+
+st.write("")
+st.write("")
+st.write("")
+st.write("")
 col1, col2, col3 = st.columns(3)
 with col1: pass
-with col2: center_button = st.button('**Submit**')
+with col2: center_button = st.button('**Submit**')    # Centers the submit button
 with col3: pass
 
 placeholder = st.empty()
@@ -80,11 +81,11 @@ if center_button:
     if any(v is None for v in st.session_state.answers.values()):
         placeholder.warning("Please, answer all the questions!", icon="❌")
     else:
-        st.session_state.submitted_answers = st.session_state.answers.copy()
+        st.session_state.submitted_answers = st.session_state.answers.copy()    # copies the answers to work with (dict. format)
         placeholder.success("Thank you for your answers!", icon="✅")
         time.sleep(3)
         st.switch_page("pages/profile.py")
-        
+
 st.markdown("""
         <style>
             @keyframes fadeOut {
@@ -98,3 +99,60 @@ st.markdown("""
     """, unsafe_allow_html=True)
 time.sleep(6)
 placeholder.empty()
+
+# ---------------------- CUSTOM STYLES ----------------------
+
+st.markdown("""
+<style>
+
+/* Button Submit */
+div.stButton > button:first-child {
+    size: 25px;           
+    font-style: bold;
+    padding: 12px 45px;
+    min-width: 120px;       
+    background-color: white;     
+    color: black;               
+    border: 2px solid black;  
+    border-radius: 10px;       
+    cursor: pointer;
+}
+
+/* "Progress" Sidebar */
+[data-testid="stSidebar"] h2 {
+    font-size: 35px;
+    font-weight: bold; 
+}
+
+/* BG */
+[data-testid="stSidebar"] {
+    background-color: #bdbababd;
+}
+
+/* Questions */
+div[data-testid="stMarkdownContainer"] > p strong {
+    font-size: 25px;   
+    display: inline-block;
+}
+
+/* Padding */
+div[role="radiogroup"] {
+    margin-top: -25px;
+}
+
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+
+</style>
+""", unsafe_allow_html=True)
+
+
+
+
+
+
+
+
+
+
+
