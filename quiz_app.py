@@ -30,12 +30,6 @@ quiz = [
 total_questions = len(quiz) # Initialization of cycle 
 if "answers" not in st.session_state: 
     st.session_state.answers = {q["question"]: None for q in quiz} 
-    # ---------------------- PROGRESS BAR ---------------------- 
-st.header("Progress")
-answered_questions = sum(1 for a in st.session_state.answers.values() if a is not None) 
-progress_value = answered_questions / total_questions 
-st.progress(progress_value) 
-st.write(f"Done: {answered_questions}/{total_questions}") 
 # ---------------------- SHOW QUIZ ---------------------- 
 for i, q in enumerate(quiz, start=1): 
     key = f"q{i}" 
@@ -46,6 +40,12 @@ for i, q in enumerate(quiz, start=1):
     
 for i, q in enumerate(quiz, start=1): 
     st.session_state.answers[q["question"]] = st.session_state.get(f"q{i}")
+# ---------------------- PROGRESS BAR ---------------------- 
+st.header("Progress")
+answered_questions = sum(1 for a in st.session_state.answers.values() if a is not None) 
+progress_value = answered_questions / total_questions 
+st.progress(progress_value) 
+st.write(f"Done: {answered_questions}/{total_questions}") 
 # ---------------------- SUBMIT SECTION ----------------------
 st.write("")
 st.write("")
@@ -113,6 +113,7 @@ div[role="radiogroup"] {
 footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
