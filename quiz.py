@@ -168,11 +168,9 @@ answered_count = sum(1 for v in st.session_state.answers.values() if v is not No
 progress = int((answered_count / total_questions) * 100)
 
 with progress_placeholder.container():
-    st.markdown("<div class='sticky-progress'>", unsafe_allow_html=True)
     st.header("Progress")
     progress_bar = st.progress(progress)
     st.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
-    st.markdown("</div>", unsafe_allow_html=True)
     
 # ---------------------- SUBMIT SECTION ----------------------
 
@@ -272,6 +270,7 @@ footer {visibility: hidden;}
 
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
