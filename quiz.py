@@ -4,11 +4,44 @@ import streamlit as st
 from PIL import Image
 import time
 
+# ---------------------- QUIZ LOGIC ----------------------
+
+total_questions = len(quiz)
+
+# Initialization of cycle
+if "answers" not in st.session_state:
+    st.session_state.answers = {q["question"]: None for q in quiz}
+
+# shows quiz
+for i, q in enumerate(quiz, start=1):
+    key = f"q{i}"
+
+    if key not in st.session_state:
+        st.session_state[key] = None
+
+    st.markdown(f"**{i}) {q['question']}**")
+
+    st.radio(
+        "",
+        q["options"],
+        key=key
+    )
+    
+st.session_state.answers = {
+    q["question"]: st.session_state[f"q{i+1}"]
+    for i, q in enumerate(quiz)
+}
+
 # ---------------------- PAGE CONFIG ----------------------
 
 st.header("Progress")
 progress_bar = st.progress(0)
 progress_text = st.empty()
+
+# Progress calc. (dynamical)
+answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
+progress = int((answered_count / total_questions) * 100)
+progress_bar.progress(progress)
 progress_text.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
 
 im = Image.open("logo-round.png")
@@ -191,41 +224,6 @@ quiz = [
     }
 ]
 
-# ---------------------- QUIZ LOGIC ----------------------
-
-total_questions = len(quiz)
-
-# Initialization of cycle
-if "answers" not in st.session_state:
-    st.session_state.answers = {q["question"]: None for q in quiz}
-
-# shows quiz
-for i, q in enumerate(quiz, start=1):
-    key = f"q{i}"
-
-    if key not in st.session_state:
-        st.session_state[key] = None
-
-    st.markdown(f"**{i}) {q['question']}**")
-
-    st.radio(
-        "",
-        q["options"],
-        key=key
-    )
-    
-st.session_state.answers = {
-    q["question"]: st.session_state[f"q{i+1}"]
-    for i, q in enumerate(quiz)
-}
-    
-# ---------------------- SIDEBAR PROGRESS ----------------------
-
-# Progress calc. (dynamical)
-answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
-progress = int((answered_count / total_questions) * 100)
-progress_bar.progress(progress)
-
 # ---------------------- SUBMIT SECTION ----------------------
 
 st.write("")
@@ -264,6 +262,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 time.sleep(6)
 placeholder.empty()
+
 
 
 
