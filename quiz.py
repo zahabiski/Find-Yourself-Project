@@ -14,15 +14,6 @@ st.set_page_config(
     layout="centered"
 )
 
-# ---------------------- PAGE HEADER ----------------------
-
-progress_placeholder = st.empty()
-
-st.markdown(
-    "<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>",
-    unsafe_allow_html=True
-)
-
 # ---------------------- QUIZ DATA ----------------------
 
 quiz = [
@@ -48,21 +39,9 @@ total_questions = len(quiz)
 if "answers" not in st.session_state:
     st.session_state.answers = {q["question"]: None for q in quiz}
 
-# ---------------------- SHOW QUIZ ----------------------
+progress_placeholder = st.empty()
 
-for i, q in enumerate(quiz, start=1):
-    key = f"q{i}"
-    if key not in st.session_state:
-        st.session_state[key] = None
-
-    st.markdown(f"**{i}) {q['question']}**")
-    choice = st.radio("", q["options"], key=key)
-
-    st.session_state.answers[q["question"]] = choice
-
-    update_progress()
-
-# ---------------------- CALCULATE PROGRESS ----------------------
+# ---------------------- CALCULATE PROGRESS ------------------a----
 
 def update_progress():
     answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
@@ -75,7 +54,26 @@ def update_progress():
         st.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
         st.markdown('</div>', unsafe_allow_html=True)
 
+update_progress()
 
+# ---------------------- PAGE HEADER ----------------------
+st.markdown(
+    "<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>",
+    unsafe_allow_html=True
+)
+
+# ---------------------- SHOW QUIZ ----------------------
+
+for i, q in enumerate(quiz, start=1):
+    key = f"q{i}"
+    if key not in st.session_state:
+        st.session_state[key] = None
+
+    st.markdown(f"**{i}) {q['question']}**")
+    choice = st.radio("", q["options"], key=key)
+
+    st.session_state.answers[q["question"]] = choice
+    update_progress()
     
 # ---------------------- SUBMIT SECTION ----------------------
 
@@ -175,6 +173,7 @@ footer {visibility: hidden;}
 
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
