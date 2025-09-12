@@ -168,11 +168,11 @@ answered_count = sum(1 for v in st.session_state.answers.values() if v is not No
 progress = int((answered_count / total_questions) * 100)
 col11, col22, col33 = st.columns(3)
 with progress_placeholder.container():
-    with col1:
+    with col11:
         pass
-    with col2:
+    with col22:
         st.header("Progress")
-    with col3:
+    with col33:
         pass
     progress_bar = st.progress(progress)
     st.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
@@ -273,6 +273,7 @@ footer {visibility: hidden;}
 
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
