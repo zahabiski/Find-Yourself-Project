@@ -32,7 +32,8 @@ total_questions = len(quiz)
 if "answers" not in st.session_state:
     st.session_state.answers = {q["question"]: None for q in quiz}
 # ---------------------- PROGRESS BAR ---------------------- 
-st.header("Progress") answered_questions = sum(1 for a in st.session_state.answers.values() if a is not None) 
+st.header("Progress") 
+answered_questions = sum(1 for a in st.session_state.answers.values() if a is not None) 
 progress_value = answered_questions / total_questions 
 st.progress(progress_value) 
 st.write(f"Done: {answered_questions}/{total_questions}")
@@ -120,3 +121,4 @@ div[role="radiogroup"] {
 footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
+
