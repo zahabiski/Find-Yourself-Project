@@ -39,10 +39,14 @@ progress_bar = st.sidebar.progress(0)
 progress_text = st.empty()
 
 # Progress calc. (dynamical)
-answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
+answered_count = sum(
+    1 for i in range(1, total_questions+1) 
+    if st.session_state.get(f"q{i}") is not None
+)
 progress = int((answered_count / total_questions) * 100)
 progress_bar.progress(progress)
 progress_text.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
+
 
 # shows quiz
 for i, q in enumerate(quiz, start=1):
@@ -59,11 +63,8 @@ for i, q in enumerate(quiz, start=1):
         key=key
     )
     
-st.session_state.answers = {
-    q["question"]: st.session_state[f"q{i+1}"]
-    for i, q in enumerate(quiz)
-}
-
+for i, q in enumerate(quiz, start=1):
+    st.session_state.answers[q["question"]] = st.session_state.get(f"q{i}")
 # ---------------------- SUBMIT SECTION ----------------------
 
 st.write("")
@@ -83,7 +84,6 @@ if center_button:
     else:
         st.session_state.submitted_answers = st.session_state.answers.copy()    # copies the answers to work with (dict. format)
         placeholder.success("Thank you for your answers!", icon="✅")
-        time.sleep(3)
         st.switch_page("pages/profile.py")
 
 st.markdown("""
@@ -145,6 +145,7 @@ footer {visibility: hidden;}
 
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
