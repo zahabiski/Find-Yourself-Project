@@ -44,12 +44,13 @@ for i, q in enumerate(quiz, start=1):
     if key not in st.session_state:
         st.session_state[key] = None
 
-    st.session_state.answers[q["question"]] = st.radio(
-        f"**{i}) {q['question']}**",
+      st.markdown(f"**{i}) {q['question']}**")
+
+    st.radio(
+        "",
         q["options"],
         key=key
     )
-    
 for i, q in enumerate(quiz, start=1):
     st.session_state.answers[q["question"]] = st.session_state.get(f"q{i}")
 # ---------------------- SUBMIT SECTION ----------------------
@@ -119,6 +120,7 @@ div[role="radiogroup"] {
 footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
