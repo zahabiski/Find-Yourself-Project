@@ -217,6 +217,7 @@ st.markdown(
     """
     <style>
     .progress-header {
+        top:0;
         position: sticky;
     }
     </style>
@@ -267,6 +268,7 @@ footer {visibility: hidden;}
 
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
