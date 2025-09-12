@@ -34,8 +34,8 @@ total_questions = len(quiz)
 if "answers" not in st.session_state:
     st.session_state.answers = {q["question"]: None for q in quiz}
 
-st.header("Progress")
-progress_bar = st.progress(0)
+st.sidebar.header("Progress")
+progress_bar = st.sidebar.progress(0)
 progress_text = st.empty()
 
 # Progress calc. (dynamical)
@@ -145,6 +145,7 @@ footer {visibility: hidden;}
 
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
