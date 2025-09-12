@@ -6,9 +6,9 @@ import time
 
 # ---------------------- PAGE CONFIG ----------------------
 
-st.sidebar.header("Progress")
-progress_bar = st.sidebar.progress(0)
-progress_text = st.sidebar.empty()
+st.header("Progress")
+progress_bar = st.progress(0)
+progress_text = st.empty()
 
 im = Image.open("logo-round.png")
 
@@ -268,6 +268,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 time.sleep(6)
 placeholder.empty()
+
 
 
 
