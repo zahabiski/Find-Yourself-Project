@@ -38,8 +38,9 @@ st.progress(progress_value)
 st.write(f"Done: {answered_questions}/{total_questions}") 
 # ---------------------- SHOW QUIZ ---------------------- 
 for i, q in enumerate(quiz, start=1): 
-    key = f"q{i}" if key not in st.session_state: 
-    st.session_state[key] = None 
+    key = f"q{i}" 
+    if key not in st.session_state: 
+        st.session_state[key] = None 
     st.markdown(f"**{i}) {q['question']}**") 
     st.radio( "", q["options"], key=key ) 
     
@@ -112,6 +113,7 @@ div[role="radiogroup"] {
 footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
