@@ -8,15 +8,6 @@ st.set_page_config(page_title="Find Yourself", page_icon=im, layout="centered")
 # ---------------------- CUSTOM STYLES ----------------------
 st.markdown("""
 <style>
-/* Sticky top bar for progress */
-div.stProgress {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background-color: white;
-    padding: 10px;
-    border-bottom: 2px solid black;
-}
 /* Button Submit */
 div.stButton > button:first-child {
     font-weight: bold;
@@ -107,6 +98,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 time.sleep(6)
 placeholder.empty()
+
 
 
 
