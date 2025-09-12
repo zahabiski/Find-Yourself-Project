@@ -13,37 +13,44 @@ st.set_page_config(
 )
 
 # ---------------------- CUSTOM STYLES ----------------------
-st.markdown(
-    """
-    /* Button Submit */
-    div.stButton > button:first-child {
-        font-weight: bold;
-        padding: 12px 45px;
-        min-width: 120px;       
-        background-color: white;     
-        color: black;               
-        border: 2px solid black;  
-        border-radius: 10px;       
-        cursor: pointer;
-    }
+st.markdown("""
+<style>
+.progress-container {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: white;
+    padding: 10px;
+    border-bottom: 2px solid black;
+}
 
-    /* Questions */
-    div[data-testid="stMarkdownContainer"] > p strong {
-        font-size: 25px;   
-        display: inline-block;
-    }
+/* Button Submit */
+div.stButton > button:first-child {
+    font-weight: bold;
+    padding: 12px 45px;
+    min-width: 120px;
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+}
 
-    /* Padding for radio buttons */
-    div[role="radiogroup"] {
-        margin-top: -25px;
-    }
+/* Questions */
+div[data-testid="stMarkdownContainer"] > p strong {
+    font-size: 25px;
+    display: inline-block;
+}
 
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+/* Padding for radio buttons */
+div[role="radiogroup"] {
+    margin-top: -25px;
+}
+
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+</style>
+""", unsafe_allow_html=True)
 
 # ---------------------- QUIZ DATA ----------------------
 quiz = [
@@ -69,33 +76,32 @@ if "answers" not in st.session_state:
 
 progress_placeholder = st.empty()
 
+# ---------------------- PROGRESS FUNCTION ----------------------
 def update_progress():
     answered_count = sum(1 for v in st.session_state.answers.values() if v is not None)
     progress = int((answered_count / total_questions) * 100)
     with progress_placeholder.container():
-        st.markdown('<div class="progress_container">', unsafe_allow_html=True)
+        st.markdown('<div class="progress-container">', unsafe_allow_html=True)
         st.subheader("Progress")
         st.progress(progress)
         st.write(f"Done: {answered_count}/{total_questions} ({progress}%)")
         st.markdown('</div>', unsafe_allow_html=True)
 
+# ---------------------- PAGE HEADER ----------------------
 update_progress()
+st.markdown("<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>", unsafe_allow_html=True)
 
-st.markdown(
-    "<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>",
-    unsafe_allow_html=True
-)
-
+# ---------------------- SHOW QUIZ ----------------------
 for i, q in enumerate(quiz, start=1):
     key = f"q{i}"
     st.session_state.setdefault(key, None)
 
     st.markdown(f"**{i}) {q['question']}**")
     choice = st.radio("", q["options"], key=key)
-
     st.session_state.answers[q["question"]] = choice
     update_progress()
-    
+
+# ---------------------- SUBMIT SECTION ----------------------
 col1, col2, col3 = st.columns(3)
 with col1: pass
 with col2: center_button = st.button('**Submit**')
@@ -111,4 +117,3 @@ if center_button:
         placeholder.success("Thank you for your answers!", icon="✅")
         time.sleep(3)
         st.switch_page("pages/profile.py")
-
