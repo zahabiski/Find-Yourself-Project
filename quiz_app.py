@@ -40,10 +40,6 @@ for i, q in enumerate(quiz, start=1):
     st.markdown(f"**{i}) {q['question']}**") 
     st.radio( "", q["options"], key=key )
     
-with progress_container:
-    progress_container.empty()
-    st.progress(progress)
-    st.write(f"Done: {answered}/{len(quiz)}")
 for i, q in enumerate(quiz, start=1): 
     st.session_state.answers[q["question"]] = st.session_state.get(f"q{i}")
 with progress_container:
@@ -119,6 +115,7 @@ div[role="radiogroup"] {
 footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
