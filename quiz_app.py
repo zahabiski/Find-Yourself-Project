@@ -30,6 +30,14 @@ if "answers" not in st.session_state:
     st.session_state.answers = {q["question"]: None for q in quiz}
 # ---------------------- PROGRESS BAR ----------------------
 progress_container = st.container()
+with progress_container:
+    # Compute progress based on current answers
+    answered = sum(1 for a in st.session_state.answers.values() if a is not None)
+    progress = answered / len(quiz)
+    
+    st.markdown("<h3>Progress</h3>", unsafe_allow_html=True)
+    st.progress(progress)
+    st.write(f"Done: {answered}/{len(quiz)}")
 # ---------------------- PAGE HEADER ----------------------
 st.markdown("<h1 style='text-align: center; color: black;'>Find Yourself Quiz</h1>", unsafe_allow_html=True)
 # ---------------------- SHOW QUIZ ---------------------- 
@@ -115,6 +123,7 @@ div[role="radiogroup"] {
 footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
