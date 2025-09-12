@@ -31,6 +31,14 @@ total_questions = len(quiz)
 # Initialization of cycle
 if "answers" not in st.session_state:
     st.session_state.answers = {q["question"]: None for q in quiz}
+if "current_question" not in st.session_state:
+    st.session_state.current_question = 0 
+# ---------------------- PROGRESS BAR ----------------------
+st.header("Progress")
+answered_questions = sum(1 for a in st.session_state.answers.values() if a is not None)
+progress_value = answered_questions / total_questions
+st.progress(progress_value)
+st.write(f"Done: {answered_questions}/{total_questions}")
 # ---------------------- SHOW QUIZ ----------------------
 for i, q in enumerate(quiz, start=1):
     key = f"q{i}"
@@ -114,4 +122,5 @@ div[role="radiogroup"] {
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
 </style>
+
 """, unsafe_allow_html=True)
