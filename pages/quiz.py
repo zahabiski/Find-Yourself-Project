@@ -112,7 +112,7 @@ div[role="radiogroup"] {
 footer {visibility: hidden;}
 /*Progress Bar*/
 .progress-bar-container {
-  position: sticky; 
+  position: fixed; 
   top: 0;
   z-index: 1000;
 }
