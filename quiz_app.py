@@ -4,12 +4,13 @@ from PIL import Image
 import time
 # ---------------------- NAV. PANEL ----------------------
 pages = {
-    "Profile" : [
-        st.Page("profile.py", title="Profile"),
-        st.Page("quiz_app.py", titile="Quiz"),
+    "Profile": [
+        st.Page("pages/profile.py", title="Profile"),
+        st.Page("quiz_app.py", title="Quiz"),
     ]
 }
-pg = st.navigation(pages, position=top)
+
+pg = st.navigation(pages, position="top")
 pg.run()
 # ---------------------- PAGE CONFIG ----------------------
 im = Image.open("logo-round.png")
@@ -124,32 +125,3 @@ div[role="radiogroup"] {
 footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
