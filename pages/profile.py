@@ -16,6 +16,8 @@ st.set_page_config(
 
 # ---------------------- PAGE HEADER ----------------------
 
-st.expander("Hard Skills:", expanded=True)
-st.expander("Soft Skills:", expanded=True)
-st.expander("Overall Profile:", expanded=True)
+st.write("Che to")
+#st.expander("Hard Skills:", expanded=True)
+#st.expander("Soft Skills:", expanded=True)
+#st.expander("Overall Profile:", expanded=True)
+
