@@ -2,6 +2,15 @@
 import streamlit as st
 from PIL import Image
 import time
+# ---------------------- NAV. PANEL ----------------------
+pages = {
+    "Profile" : [
+        st.Page("profile.py", title="Profile")
+        st.Page("quiz_app.py", titile="Quiz")
+    ]
+}
+pg = st.navigation(pages, position=top)
+pg.run()
 # ---------------------- PAGE CONFIG ----------------------
 im = Image.open("logo-round.png")
 st.set_page_config(
@@ -115,6 +124,7 @@ div[role="radiogroup"] {
 footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
