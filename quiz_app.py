@@ -5,8 +5,8 @@ import time
 # ---------------------- NAV. PANEL ----------------------
 pages = {
     "Profile" : [
-        st.Page("profile.py", title="Profile")
-        st.Page("quiz_app.py", titile="Quiz")
+        st.Page("profile.py", title="Profile"),
+        st.Page("quiz_app.py", titile="Quiz"),
     ]
 }
 pg = st.navigation(pages, position=top)
@@ -124,6 +124,7 @@ div[role="radiogroup"] {
 footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
