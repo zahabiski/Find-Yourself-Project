@@ -43,11 +43,13 @@ for i, q in enumerate(quiz, start=1):
 for i, q in enumerate(quiz, start=1): 
     st.session_state.answers[q["question"]] = st.session_state.get(f"q{i}")
 with progress_container:
+    st.markdown('<div class="progress-bar-container">', unsafe_allow_html=True)
     answered = sum(1 for a in st.session_state.answers.values() if a is not None)
     progress = answered / len(quiz)
     st.markdown("<h3>Progress</h3>", unsafe_allow_html=True)
     st.progress(progress)
     st.write(f"Done: {answered}/{len(quiz)}")
+    st.markdown('</div>', unsafe_allow_html=True)
 # ---------------------- SUBMIT SECTION ----------------------
 st.write("")
 st.write("")
@@ -93,11 +95,6 @@ div.stButton > button:first-child {
     border-radius: 10px;       
     cursor: pointer;
 }
-/* "Progress" Sidebar */
-[data-testid="stSidebar"] h2 {
-    font-size: 35px;
-    font-weight: bold; 
-}
 /* BG */
 [data-testid="stSidebar"] {
     background-color: #bdbababd;
@@ -113,5 +110,11 @@ div[role="radiogroup"] {
 }
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
+/*Progress Bar*/
+.progress-bar-container {
+  position: sticky; 
+  top: 0;
+  z-index: 1000;
+}
 </style>
 """, unsafe_allow_html=True)
