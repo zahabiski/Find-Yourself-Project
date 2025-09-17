@@ -4,7 +4,7 @@ from PIL import Image
 # ---------------- NAVIGATION ----------------
 pages = {
     "Main": [
-        st.Page(""pages/quiz.py", title="Quiz"),
+        st.Page("pages/quiz.py", title="Quiz"),
         st.Page("pages/profile.py", title="Profile"),
     ]
 }
