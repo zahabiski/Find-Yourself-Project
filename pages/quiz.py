@@ -66,9 +66,10 @@ if center_button:
         placeholder.warning("Please, answer all the questions!", icon="❌")
     else:
         submitted_answers = st.session_state.answers.copy()    # copies the answers to work with (dict. format)
+        pailor = {"promt":f"{submitted_answers}"}
         response = requests.post(
             "https://ae660c993417.ngrok-free.app/check_data",
-            json=submitted_answers
+            json=pailor
         )
         placeholder.success("Thank you for your answers!", icon="✅")
         st.switch_page("pages/profile.py")
