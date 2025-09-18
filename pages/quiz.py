@@ -1,6 +1,7 @@
 # ---------------------- IMPORTS ----------------------
 import streamlit as st
 from PIL import Image
+import requests
 import time
 # ---------------------- PAGE CONFIG ----------------------
 im = Image.open("logo-round.png")
@@ -64,7 +65,11 @@ if center_button:
     if any(v is None for v in st.session_state.answers.values()):
         placeholder.warning("Please, answer all the questions!", icon="❌")
     else:
-        st.session_state.submitted_answers = st.session_state.answers.copy()    # copies the answers to work with (dict. format)
+        submitted_answers = st.session_state.answers.copy()    # copies the answers to work with (dict. format)
+        response = requests.post(
+            "https://ae660c993417.ngrok-free.app/",
+            json=submitted_answers
+        )
         placeholder.success("Thank you for your answers!", icon="✅")
         st.switch_page("pages/profile.py")
 st.markdown("""
