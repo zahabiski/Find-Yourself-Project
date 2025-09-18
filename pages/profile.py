@@ -16,8 +16,9 @@ st.set_page_config(
 
 # ---------------------- PAGE HEADER ----------------------
 
-st.write("Che to")
+st.write(modelresponce.json()["response"])
 #st.expander("Hard Skills:", expanded=True)
 #st.expander("Soft Skills:", expanded=True)
 #st.expander("Overall Profile:", expanded=True)
+
 
