@@ -67,7 +67,7 @@ if center_button:
     else:
         submitted_answers = st.session_state.answers.copy()    # copies the answers to work with (dict. format)
         response = requests.post(
-            "https://ae660c993417.ngrok-free.app/",
+            "https://ae660c993417.ngrok-free.app/check_data",
             json=submitted_answers
         )
         placeholder.success("Thank you for your answers!", icon="✅")
