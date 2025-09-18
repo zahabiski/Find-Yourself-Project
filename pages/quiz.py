@@ -71,6 +71,7 @@ if center_button:
             "https://69ba1845b520.ngrok-free.app/check_data",
             json=pailor
         )
+        print(modelresponce.json()["response"])
         placeholder.success("Thank you for your answers!", icon="✅")
         st.switch_page("pages/profile.py")
 st.markdown("""
