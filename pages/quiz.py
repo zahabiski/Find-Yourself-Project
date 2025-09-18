@@ -68,7 +68,7 @@ if center_button:
         submitted_answers = st.session_state.answers.copy()    # copies the answers to work with (dict. format)
         pailor = {"promt":f"{submitted_answers}"}
         response = requests.post(
-            "https://ae660c993417.ngrok-free.app/check_data",
+            "https://69ba1845b520.ngrok-free.app/check_data",
             json=pailor
         )
         placeholder.success("Thank you for your answers!", icon="✅")
